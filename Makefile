@@ -1,25 +1,28 @@
 LIBS=-lsfml-graphics -lsfml-window -lsfml-system
+SRC=src
+OBJ=obj
+BIN=bin
 
 all: AnterficialAntelligence
 
-Game.o: Game.cpp
-	g++ -c Game.cpp -o Game.o
+Game.o: ${SRC}/Game.cpp
+	g++ -c ${SRC}/Game.cpp -o ${OBJ}/Game.o
 
-AnterficialAntelligence: Game.o
+AnterficialAntelligence: ${OBJ}/Game.o
 	@echo "** Build Happening **"
-	g++ -o AnterficialAntelligence Game.o ${LIBS}
+	g++ -o ${BIN}/AnterficialAntelligence ${OBJ}/Game.o ${LIBS}
 
 clean: 
 	@echo "** Removing executable and objects **"
-	rm -f AnterficialAntelligence *.o
+	rm -f ${BIN}/AnterficialAntelligence ${OBJ}/*.o
 
 install:
 	@echo "** Installing to /usr/bin **"
-	cp AnterficialAntelligence /usr/bin
+	cp ${BIN}/AnterficialAntelligence /usr/bin
 	
 uninstall:
 	@echo "** Uninstalling /usr/bin/AnterficialIntelligence **"
 	rm -f /usr/bin/AnterficialAntelligence
 
 run:
-	./AnterficialAntelligence
+	./${BIN}/AnterficialAntelligence
