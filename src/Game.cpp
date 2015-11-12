@@ -3,6 +3,7 @@
 #include "Ant.h"
 #include "TileMap.h"
 #include "AssetLoader.h"
+#include "Camera.h"
 
 int main() {
 	 
@@ -16,17 +17,7 @@ int main() {
 	tileMap.setMapSize(200,200);
 	tileMap.setTileSize(256);
 
-	AssetLoader assetLoader = AssetLoader(); 
-	
-//	sf::Texture earthSolidTexture;
-//	earthSolidTexture.loadFromFile("./data/EarthTileSolid.png");
-//	sf::Sprite earthSolid;
-//	earthSolid.setTexture(earthSolidTexture);
-//
-//	sf::Texture	earthSolidTunnelTexture;
-//	earthSolidTunnelTexture.loadFromFile("./data/EarthTileHorizontalTunnel.png");
-//	sf::Sprite earthSolidTunnel;
-//	earthSolidTunnel.setTexture(earthSolidTunnelTexture);
+	AssetLoader assetLoader = AssetLoader();
 
 	std::vector<sf::Sprite> spriteVector{
 		assetLoader.getSpriteEarth(), 
@@ -51,13 +42,20 @@ int main() {
 		 
 		sf::Event event;
 		
-		while (gameWindow.pollEvent(event)) { if (event.type == sf::Event::Closed) gameWindow.close(); }
+		while (gameWindow.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                gameWindow.close();
+            else if(event.type == sf::Event::Resized)
+                view.setSize(window.getSize().x, window.getSize().y);
+        }
 		
 		gameWindow.clear(sf::Color(225,225,225,225));
 
 		tileMap.draw(gameWindow, view );
 		ant.draw(gameWindow);
 
+        updateCamera(deltaTime.asSeconds());
+        gameWindow.setView(view);
 		gameWindow.display();
 		deltaTime = clock.restart();
 
