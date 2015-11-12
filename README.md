@@ -1,3 +1,3 @@
-# AnterficialAntelligence
+# AntificialAntelligence
 
 Ant Simulator 20**

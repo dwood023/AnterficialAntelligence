@@ -1,13 +1,13 @@
 //
 //  TileMap.h
-//  AnterficialAntelligence
+//  AntificialAntelligence
 //
 //  Created by Jonathan Wood on 09/11/2015.
 //
 //
 
-#ifndef __AnterficialAntelligence__TilemapInt__
-#define __AnterficialAntelligence__TilemapInt__
+#ifndef __AntificialAntelligence__TilemapInt__
+#define __AntificialAntelligence__TilemapInt__
 
 #include <stdint.h>
 #include <vector>
@@ -58,4 +58,4 @@ private:
     sf::Vector2f position;
 };
 
-#endif /* defined(__AnterficialAntelligence__TilemapInt__) */
+#endif /* defined(__AntificialAntelligence__TilemapInt__) */

@@ -5,7 +5,7 @@
 
 int main() {
 	 
-	sf::RenderWindow gameWindow(sf::VideoMode(200,200), "Anterficial Antelligence - [PRE-ALPHA]");
+	sf::RenderWindow gameWindow(sf::VideoMode(200,200), "Antificial Antelligence - [PRE-ALPHA]");
 	
 	sf::Time deltaTime = sf::seconds(1.0f/60.0f);
 

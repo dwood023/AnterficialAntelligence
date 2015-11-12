@@ -1,6 +1,6 @@
 //
 //  TileMap.cpp
-//  AnterficialAntelligence
+//  AntificialAntelligence
 //
 //  Created by Jonathan Wood on 09/11/2015.
 //

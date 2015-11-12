@@ -2,7 +2,7 @@ COMPILER=g++ -std=c++11
 LIBS:=-lsfml-graphics -lsfml-window -lsfml-system
 SRCFILES:=${wildcard src/*.cpp}
 OBJFILES := $(addprefix obj/,$(notdir $(SRCFILES:.cpp=.o)))
-EXECUTABLE:=AnterficialAntelligence
+EXECUTABLE:=AntificialAntelligence
 
 all: bin/$(EXECUTABLE)
 
@@ -22,7 +22,7 @@ install:
 	cp bin/$(EXECUTABLE) /usr/bin
 	
 uninstall:
-	@echo "** Uninstalling /usr/bin/AnterficialIntelligence **"
+	@echo "** Uninstalling /usr/bin/AntificialIntelligence **"
 	rm -f /usr/bin/$(EXECUTABLE)
 
 run:

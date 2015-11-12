@@ -1,13 +1,13 @@
 //
 //  MathLib.h
-//  AnterficialAntelligence
+//  AntificialAntelligence
 //
 //  Created by Jonathan Wood on 09/11/2015.
 //
 //
 
-#ifndef __AnterficialAntelligence__MathLib__
-#define __AnterficialAntelligence__MathLib__
+#ifndef __AntificialAntelligence__MathLib__
+#define __AntificialAntelligence__MathLib__
 
 #include <stdio.h>
 #include <cstdlib>
@@ -17,4 +17,4 @@ namespace MathLib{
     int randInt(int n1, int n2);
 }
 
-#endif /* defined(__AnterficialAntelligence__MathLib__) */
+#endif /* defined(__AntificialAntelligence__MathLib__) */
