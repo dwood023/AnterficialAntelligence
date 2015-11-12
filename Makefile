@@ -1,28 +1,29 @@
-LIBS=-lsfml-graphics -lsfml-window -lsfml-system
-SRC=src
-OBJ=obj
-BIN=bin
+COMPILER=g++ -std=c++11
+LIBS:=-lsfml-graphics -lsfml-window -lsfml-system
+SRCFILES:=${wildcard src/*.cpp}
+OBJFILES := $(addprefix obj/,$(notdir $(SRCFILES:.cpp=.o)))
+EXECUTABLE:=AnterficialAntelligence
 
-all: AnterficialAntelligence
+all: bin/$(EXECUTABLE)
 
-Game.o: ${SRC}/Game.cpp
-	g++ -c ${SRC}/Game.cpp -o ${OBJ}/Game.o
-
-AnterficialAntelligence: ${OBJ}/Game.o
+bin/$(EXECUTABLE): $(OBJFILES)
 	@echo "** Build Happening **"
-	g++ -o ${BIN}/AnterficialAntelligence ${OBJ}/Game.o ${LIBS}
+	$(COMPILER) $(LIBS) -o $@ $^ 
+
+obj/%.o: src/%.cpp
+	$(COMPILER) -c -o $@ $<
 
 clean: 
 	@echo "** Removing executable and objects **"
-	rm -f ${BIN}/AnterficialAntelligence ${OBJ}/*.o
+	rm -f bin/$(EXECUTABLE) $(OBJFILES)
 
 install:
 	@echo "** Installing to /usr/bin **"
-	cp ${BIN}/AnterficialAntelligence /usr/bin
+	cp bin/$(EXECUTABLE) /usr/bin
 	
 uninstall:
 	@echo "** Uninstalling /usr/bin/AnterficialIntelligence **"
-	rm -f /usr/bin/AnterficialAntelligence
+	rm -f /usr/bin/$(EXECUTABLE)
 
 run:
-	./${BIN}/AnterficialAntelligence
+	./bin/$(EXECUTABLE)

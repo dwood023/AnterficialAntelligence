@@ -52,7 +52,7 @@ private:
     //Will return the map tile that the point is within
     sf::Vector2u getMapIndexAtPosition(float x, float y);
     
-    std::vector<std::vector<uint8_t>> map;
+    std::vector<std::vector<uint8_t> > map;
     std::vector<sf::Sprite> tileSprites;
     unsigned int tileSize;
     sf::Vector2f position;
