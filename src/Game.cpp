@@ -2,34 +2,36 @@
 #include <string>
 #include "Ant.h"
 #include "TileMap.h"
+#include "AssetLoader.h"
 
 int main() {
 	 
-	sf::RenderWindow gameWindow(sf::VideoMode(200,200), "Antificial Antelligence - [PRE-ALPHA]");
+	sf::RenderWindow gameWindow(sf::VideoMode(1024,1024), "Antificial Antelligence - [PRE-ALPHA]");
 	
 	sf::Time deltaTime = sf::seconds(1.0f/60.0f);
 
 	sf::Clock clock;
 
-	sf::Texture antTexture;
-
 	TileMap tileMap = TileMap();
-
 	tileMap.setMapSize(200,200);
+	tileMap.setTileSize(256);
 
-	tileMap.setTileSize(128);
+	AssetLoader assetLoader = AssetLoader(); 
 	
-	sf::Texture earthSolidTexture;
-	earthSolidTexture.loadFromFile("./data/EarthTileSolid.png");
-	sf::Sprite earthSolid;
-	earthSolid.setTexture(earthSolidTexture);
+//	sf::Texture earthSolidTexture;
+//	earthSolidTexture.loadFromFile("./data/EarthTileSolid.png");
+//	sf::Sprite earthSolid;
+//	earthSolid.setTexture(earthSolidTexture);
+//
+//	sf::Texture	earthSolidTunnelTexture;
+//	earthSolidTunnelTexture.loadFromFile("./data/EarthTileHorizontalTunnel.png");
+//	sf::Sprite earthSolidTunnel;
+//	earthSolidTunnel.setTexture(earthSolidTunnelTexture);
 
-	sf::Texture	earthSolidTunnelTexture;
-	earthSolidTunnelTexture.loadFromFile("./data/EarthTileHorizontalTunnel.png");
-	sf::Sprite earthSolidTunnel;
-	earthSolidTunnel.setTexture(earthSolidTunnelTexture);
-
-	std::vector<sf::Sprite> spriteVector = { earthSolid, earthSolidTunnel };
+	std::vector<sf::Sprite> spriteVector{
+		assetLoader.getSpriteEarth(), 
+		assetLoader.getSpriteEarthHorizontalTunnel()
+	};
 
 	sf::View view;
 
@@ -42,20 +44,14 @@ int main() {
 
 	tileMap.randomizeMap();
 
-	if (!antTexture.loadFromFile("./data/Ant.png")) {
-		return 1;	 
-	}
-
-	Ant ant = Ant(sf::Vector2f(100,100), antTexture);
+	Ant ant = Ant(sf::Vector2f(100, 100), assetLoader.getSpriteAnt());
+	Ant irateAnt = Ant(sf::Vector2f(400, 400), assetLoader.getSpriteIrateAnt());
 
 	while (gameWindow.isOpen()) {
 		 
 		sf::Event event;
 		
-		while (gameWindow.pollEvent(event)) {
-			 if (event.type == sf::Event::Closed)
-				 gameWindow.close();
-		}
+		while (gameWindow.pollEvent(event)) { if (event.type == sf::Event::Closed) gameWindow.close(); }
 		
 		gameWindow.clear(sf::Color(225,225,225,225));
 

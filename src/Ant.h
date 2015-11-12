@@ -5,7 +5,7 @@ class Ant {
 	 
 	public:
 
-		Ant(sf::Vector2f newPosition, sf::Texture &texture);
+		Ant(sf::Vector2f newPosition, sf::Sprite newSprit);
 
 		void draw(sf::RenderWindow &window);
 

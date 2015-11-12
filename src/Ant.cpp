@@ -1,10 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include "Ant.h"
 
-	Ant::Ant(sf::Vector2f newPosition, sf::Texture &texture) {
+	Ant::Ant(sf::Vector2f newPosition, sf::Sprite newSprite) {
 		
 		setPosition(newPosition);
-		sprite.setTexture(texture);
+		sprite = newSprite;
 
 	}
 
@@ -14,7 +14,6 @@
 
 	}
 
-	// Accessors
 	void Ant::setPosition(sf::Vector2f newPosition) {
 		sprite.setPosition(newPosition);
 	}
