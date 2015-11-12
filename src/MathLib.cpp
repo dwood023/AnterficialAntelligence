@@ -1,6 +1,6 @@
 //
 //  MathLib.cpp
-//  AntificialAntelligence
+//  AnterficialAntelligence
 //
 //  Created by Jonathan Wood on 09/11/2015.
 //
