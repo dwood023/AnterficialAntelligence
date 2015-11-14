@@ -34,9 +34,21 @@ inline uint8_t TileMap::getTile(unsigned int x, unsigned int y){
 void TileMap::draw(sf::RenderWindow & window, sf::View & view){
     const sf::FloatRect rect = sf::FloatRect(view.getCenter().x - view.getSize().x/2.0f, view.getCenter().y - view.getSize().y/2.0f, view.getSize().x, view.getSize().y);
     
-    const sf::Vector2u drawStart = getMapIndexAtPosition(rect.left, rect.top);
-    const sf::Vector2u drawEnd = getMapIndexAtPosition(rect.left + rect.width, rect.top + rect.height);
-
+    sf::Vector2i drawStart = sf::Vector2i(getMapIndexAtPosition(rect.left, rect.top));
+    sf::Vector2i drawEnd = sf::Vector2i(getMapIndexAtPosition(rect.left + rect.width, rect.top + rect.height));
+    
+    if(drawStart.x < 0)
+        drawStart.x = 0;
+    else if(drawStart.y < 0)
+        drawStart.y = 0;
+    //If the view is below the x or y limits of the tilemap, so that no tiles are visible
+    else if(drawEnd.x < 0 || drawEnd.y < 0)
+        return;
+    //If the view is beyond the x or y limits of the tilemap, so that no tiles are visible
+    else if(drawStart.x > getMapSize().x  ||  drawStart.y > getMapSize().y)
+        return;
+    
+    
     for(int y = drawStart.y; y <= drawEnd.y; ++y){
         for(int x = drawStart.x; x <= drawEnd.x; ++x){
             tileSprites[getTile(x, y)].setPosition(getPositionOfTile(x, y));
@@ -87,11 +99,6 @@ sf::Vector2u TileMap::getMapIndexAtPosition(float x, float y){
     //convert from pixel units to tile units
     x /= tileSize;
     y /= tileSize;
-    
-    if(x < 0)
-        x = 0;
-    if(y < 0)
-        y = 0;
     
     const unsigned int xIndex = x;
     const unsigned int yIndex = y;
