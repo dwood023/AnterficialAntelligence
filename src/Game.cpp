@@ -46,7 +46,7 @@ int main() {
             if (event.type == sf::Event::Closed)
                 gameWindow.close();
             else if(event.type == sf::Event::Resized)
-                view.setSize(window.getSize().x, window.getSize().y);
+                view.setSize(gameWindow.getSize().x, gameWindow.getSize().y);
         }
 		
 		gameWindow.clear(sf::Color(225,225,225,225));
@@ -54,7 +54,7 @@ int main() {
 		tileMap.draw(gameWindow, view );
 		ant.draw(gameWindow);
 
-        updateCamera(deltaTime.asSeconds());
+        updateCamera(deltaTime.asSeconds(), view, gameWindow);
         gameWindow.setView(view);
 		gameWindow.display();
 		deltaTime = clock.restart();
