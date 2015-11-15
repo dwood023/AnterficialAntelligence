@@ -1,10 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include "Ant.h"
+#include "AssetLoader.h"
 
-	Ant::Ant(sf::Vector2f newPosition, sf::Sprite newSprite) {
+	Ant::Ant(sf::Vector2f newPosition) {
 		
 		setPosition(newPosition);
-		sprite = newSprite;
+		sprite = AssetLoader::getSpriteAnt();
 
 	}
 

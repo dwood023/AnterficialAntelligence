@@ -17,6 +17,10 @@ clean:
 	@echo "** Removing executable and objects **"
 	rm -f bin/$(EXECUTABLE) $(OBJFILES)
 
+killswp:
+	@echo "Cleaning up swp trash"
+	rm src/.*.swp
+
 install:
 	@echo "** Installing to /usr/bin **"
 	cp bin/$(EXECUTABLE) /usr/bin

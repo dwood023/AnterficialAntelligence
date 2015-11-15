@@ -17,11 +17,11 @@ int main() {
 	tileMap.setMapSize(200,200);
 	tileMap.setTileSize(256);
 
-	AssetLoader assetLoader = AssetLoader();
+	AssetLoader::loadTextures(); 
 
 	std::vector<sf::Sprite> spriteVector{
-		assetLoader.getSpriteEarth(), 
-		assetLoader.getSpriteEarthHorizontalTunnel()
+		AssetLoader::getSpriteEarth(), 
+		AssetLoader::getSpriteEarthHorizontalTunnel()
 	};
 
 	sf::View view;
@@ -35,8 +35,7 @@ int main() {
 
 	tileMap.randomizeMap();
 
-	Ant ant = Ant(sf::Vector2f(100, 100), assetLoader.getSpriteAnt());
-	Ant irateAnt = Ant(sf::Vector2f(400, 400), assetLoader.getSpriteIrateAnt());
+	Ant ant = Ant(sf::Vector2f(100, 100));
 
 	while (gameWindow.isOpen()) {
 		 
