@@ -12,9 +12,19 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <cmath>
+#include <SFML/System/Vector2.hpp>
 
 namespace MathLib{
     int randInt(int n1, int n2);
+    
+    //get the length (magnitude) of a sf::Vector2 of any type
+    template<typename T> T length(const sf::Vector2<T> & vec){
+        return sqrt(pow(vec.x, 2) + pow(vec.y, 2));
+    }
+
+    template<typename T> T normal(const sf::Vector2<T> & vec){
+        return sqrt(pow(vec.x, 2) + pow(vec.y, 2));
+    }
 }
 
 #endif /* defined(__AntificialAntelligence__MathLib__) */

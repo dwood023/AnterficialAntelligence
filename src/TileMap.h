@@ -13,6 +13,8 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "MathLib.h"
+#include "TileData.h"
+#include "PathNetwork.h"
 
 
 //Assumes tile sprites have their origin in the top left corner
@@ -24,11 +26,18 @@ public:
     //Get the map size, in tiles
     sf::Vector2u getMapSize() const;
     
+    //Get the world space position of the tile
+    sf::Vector2f getTilePosition(sf::Vector2u tileMapIndex) const;
+    sf::Vector2f getTilePosition(unsigned int x, unsigned int y) const;
+    
+    //Get the position (top left coordinates) of the whole map, in world space
+    sf::Vector2f getMapPosition() const;
+    
     //Call from game loop, to draw map
     void draw(sf::RenderWindow & window, sf::View & view);
     
     //Set the sprites for the tiles the map will store integers refering to an index in this array
-    void setTileSprites(const std::vector<sf::Sprite> & newSprites);
+    void setTileData(const std::vector<TileData> & newData);
     
     //The size of tiles the map will use, in pixels. MUST BE CALLED BEFORE MAP IS USED.
     //Map only supports tiles of a uniform size
@@ -48,12 +57,17 @@ public:
     
     //Sets each tile to a random value. Just for testing (it's not even random anymore)
     void randomizeMap();
+    
+    //Constructs the world-space
+    void constructPathNetworkInArea(sf::Vector2u start, sf::Vector2u end);
 private:
     //Will return the map tile that the point is within
     sf::Vector2u getMapIndexAtPosition(float x, float y);
     
+    PathNetwork worldPathNetwork;
+    
     std::vector<std::vector<uint8_t> > map;
-    std::vector<sf::Sprite> tileSprites;
+    std::vector<TileData> tileDataArray;
     unsigned int tileSize;
     sf::Vector2f position;
 };

@@ -26,6 +26,17 @@ sf::Vector2u TileMap::getMapSize() const{
     return sf::Vector2u(0, 0);
 }
 
+//Get the world space position of the tile
+sf::Vector2f TileMap::getTilePosition(sf::Vector2u tileMapIndex) const{
+    return getMapPosition() + sf::Vector2f(tileMapIndex * tileSize);
+}
+sf::Vector2f TileMap::getTilePosition(unsigned int x, unsigned int y) const{
+    return getTilePosition(sf::Vector2u(x ,y));
+}
+
+sf::Vector2f TileMap::getMapPosition() const{
+    return position;
+}
 
 inline uint8_t TileMap::getTile(unsigned int x, unsigned int y){
     return map[y][x];
@@ -39,8 +50,13 @@ void TileMap::draw(sf::RenderWindow & window, sf::View & view){
     
     if(drawStart.x < 0)
         drawStart.x = 0;
-    else if(drawStart.y < 0)
+    if(drawStart.y < 0)
         drawStart.y = 0;
+    if(drawEnd.x >= getMapSize().x)
+        drawEnd.x = getMapSize().x - 1;
+    if(drawEnd.y >= getMapSize().y)
+        drawEnd.y = getMapSize().y - 1;
+    
     //If the view is below the x or y limits of the tilemap, so that no tiles are visible
     else if(drawEnd.x < 0 || drawEnd.y < 0)
         return;
@@ -51,14 +67,15 @@ void TileMap::draw(sf::RenderWindow & window, sf::View & view){
     
     for(int y = drawStart.y; y <= drawEnd.y; ++y){
         for(int x = drawStart.x; x <= drawEnd.x; ++x){
-            tileSprites[getTile(x, y)].setPosition(getPositionOfTile(x, y));
-            window.draw(tileSprites[getTile(x, y)]);
+            tileDataArray[getTile(x, y)].sprite.setPosition(getPositionOfTile(x, y));
+            window.draw(tileDataArray[getTile(x, y)].sprite);
         }
     }
 }
 
-void TileMap::setTileSprites(const std::vector<sf::Sprite> & newSprites){
-    tileSprites = newSprites;
+void TileMap::setTileData(const std::vector<TileData> & newData){
+    tileDataArray = newData;
+    
 }
 
 
@@ -91,6 +108,27 @@ void TileMap::randomizeMap(){
         }
     }
 }
+
+
+void TileMap::constructPathNetworkInArea(sf::Vector2u start, sf::Vector2u end){
+    if(start.x > end.x  ||  start.y > end.y){
+        std::cout<<"error in constructPathNetworkInArea: start coordinates greater than end coordinates \n";
+        return;
+    }
+    if(end.x > getMapSize().x  || end.y > getMapSize().y){
+        std::cout<<"error in constructPathNetworkInArea: coordinates are outside map \n";
+        return;
+    }
+    
+    for(int x = start.x; x <= end.x; ++x){
+        for(int y = start.y; y <= end.y; ++y){
+            if(tileDataArray[getTile(x, y)].localPathNetwork.numNodes()){
+                worldPathNetwork.assimilateNetwork(tileDataArray[getTile(x, y)].localPathNetwork, sf::Vector2f(getTilePosition(x, y)));
+            }
+        }
+    }
+}
+
 
 sf::Vector2u TileMap::getMapIndexAtPosition(float x, float y){
     //Set x and y to map local space
