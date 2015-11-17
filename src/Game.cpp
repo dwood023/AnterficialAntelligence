@@ -27,20 +27,11 @@ int main() {
 
     
     //Set up tilemap
-    std::vector<TileData> tileDataArray{
-        TileData(AssetLoader::getSpriteEarth()),
-        TileData(AssetLoader::getSpriteEarthHorizontalTunnel())
-    };
-    
-    tileDataArray[1].localPathNetwork.createNewNode(sf::Vector2f(0, 154));
-    tileDataArray[1].localPathNetwork.createNewNodeConnectedTo(sf::Vector2f(255, 154), 0);
-    
     TileMap tileMap = TileMap();
     tileMap.setMapSize(200,200);
     tileMap.setTileSize(256);
 	tileMap.setMapPosition(0,0);
-    tileMap.setTileData(tileDataArray);
-    //Finish Tilemap setup
+    tileMap.setTileData(AssetLoader::getTileDataArray());
     
     
 	Ant ant = Ant(sf::Vector2f(100, 100));

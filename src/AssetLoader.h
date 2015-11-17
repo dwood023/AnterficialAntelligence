@@ -1,18 +1,26 @@
+#include <vector>
 #include <SFML/Graphics.hpp>
+#include "TileData.h"
 
 namespace AssetLoader {
 		
-		//Constructor loads the textureSheet from file
-		void loadTextures();
+    //Constructor loads the textureSheet from file
+    void loadTextures();
 
-		sf::Sprite getSpriteAnt();
+    sf::Sprite getSpriteAnt();
 
-		sf::Sprite getSpriteIrateAnt();
+    sf::Sprite getSpriteIrateAnt();
 
-		sf::Sprite getSpriteEarth();
+    sf::Sprite getSpriteEarth();
 
-		sf::Sprite getSpriteEarthHorizontalTunnel();
+    sf::Sprite getSpriteEarthHorizontalTunnel();
+    
+    std::vector<TileData> getTileDataArray();
 
+    TileData getTileDataSolidEarth();
+    
+    TileData getTileDataHorizontalTunnel();
+    
 	namespace {
 		 
 		sf::Texture textureSheet;

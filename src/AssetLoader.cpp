@@ -28,20 +28,39 @@ namespace AssetLoader {
 
 	sf::Sprite getSpriteIrateAnt() {
 
-		return AssetLoader::getSprite(0, 256);
+		return AssetLoader::getSprite(256, 256);
 
 	}
 
 	sf::Sprite getSpriteEarth() {
 		 
-		return AssetLoader::getSprite(256, 0);
+		return AssetLoader::getSprite(0, 256);
 
 	} 
 
 	sf::Sprite getSpriteEarthHorizontalTunnel() {
 		 
-		return AssetLoader::getSprite(256, 256);
+		return AssetLoader::getSprite(0, 256);
 
 	}
-
+    
+    
+    std::vector<TileData> getTileDataArray(){
+        std::vector<TileData> dataArray{getTileDataSolidEarth(), getTileDataHorizontalTunnel()};
+        return dataArray;
+    }
+    
+    
+    TileData getTileDataSolidEarth(){
+        TileData solidEarth(getSpriteEarth());
+        return solidEarth;
+    }
+    
+    
+    TileData getTileDataHorizontalTunnel(){
+        TileData horiTunnel(getSpriteEarth());
+        horiTunnel.localPathNetwork.createNewNode(sf::Vector2f(0, 154));
+        horiTunnel.localPathNetwork.createNewNodeConnectedTo(sf::Vector2f(255, 154), 0);
+        return horiTunnel;
+    }
 }
