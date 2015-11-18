@@ -32,7 +32,6 @@ void AntBrain::navigatePathNetwork(float deltaSeconds, Ant & ant){
 PathNode * AntBrain::chooseTargetNode(std::vector<PathNode*> & adjacentNodes){
     if(adjacentNodes.size() > 1){
         const int randNodeIndex = MathLib::randInt(0, int(adjacentNodes.size() - 1));
-        std::cout<<"choose rand node index: "<<randNodeIndex<<" max could have been"<<int(adjacentNodes.size() - 1)<<std::endl;
         return adjacentNodes[randNodeIndex];
     }
     else if(adjacentNodes.size() == 1){
