@@ -92,7 +92,20 @@ void TileMap::setTile(sf::Vector2u gridPos, uint8_t newValue){
     map[gridPos.y][gridPos.x] = newValue;
 }
 
-
+void TileMap::setTiles(sf::Vector2u gridStart, sf::Vector2u gridEnd, uint8_t newValue){
+    if(gridStart.x > gridEnd.x  ||  gridStart.y > gridEnd.y){
+        return;
+    }
+    if(gridEnd.x > getMapSize().x  ||  gridEnd.y > getMapSize().y){
+        return;
+    }
+    
+    for(int x = gridStart.x; x <= gridEnd.x; ++x){
+        for(int y = gridStart.y; y <= gridEnd.y; ++y){
+            setTile(sf::Vector2u(x, y), newValue);
+        }
+    }
+}
 
 void TileMap::randomizeMap(){
     for(int y = 0; y < map.size(); ++y){
@@ -128,6 +141,12 @@ void TileMap::constructPathNetworkInArea(sf::Vector2u start, sf::Vector2u end){
         }
     }
 }
+
+
+PathNetwork & TileMap::getWorldPathNetwork(){
+    return worldPathNetwork;
+}
+
 
 
 sf::Vector2u TileMap::getMapIndexAtPosition(float x, float y){

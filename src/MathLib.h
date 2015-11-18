@@ -22,8 +22,9 @@ namespace MathLib{
         return sqrt(pow(vec.x, 2) + pow(vec.y, 2));
     }
 
-    template<typename T> T normal(const sf::Vector2<T> & vec){
-        return sqrt(pow(vec.x, 2) + pow(vec.y, 2));
+    template<typename T> sf::Vector2<T> normal(const sf::Vector2<T> & vec){
+        const float mag = length(vec);
+        return sf::Vector2<T>(vec.x / mag, vec.y / mag);
     }
 }
 

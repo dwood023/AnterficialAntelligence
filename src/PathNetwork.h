@@ -17,6 +17,8 @@
 
 class PathNetwork{
 public:
+    //will return false if nodeID is invalid
+    bool getConnectedNodes( int nodeNetID ,std::vector<PathNode*> & connectedNodesOut);
     
     //All these createNewNode functions return true if successful, and false if not (likely due to index of node to connect to being valid)
 
@@ -39,6 +41,9 @@ public:
     //Other network assumed to be in world space
     //offsetToNewNodes is intended for use when adding a local-space tile data network to the main network at a given position
     void assimilateNetwork(const PathNetwork & otherNetwork, sf::Vector2f offsetToNewNodes = sf::Vector2f(0, 0));
+    
+    //Will return nullptr if nodeNetID is invalid
+    PathNode * getNode(int nodeNetID);
 private:
     std::vector<PathNode> allNodes;
     

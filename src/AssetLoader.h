@@ -1,3 +1,6 @@
+#ifndef __AntificialAntelligence__AssetLoader__
+#define __AntificialAntelligence__AssetLoader__
+
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "TileData.h"
@@ -32,3 +35,6 @@ namespace AssetLoader {
 	}
 
 };
+
+
+#endif

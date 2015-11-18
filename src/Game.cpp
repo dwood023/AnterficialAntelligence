@@ -33,15 +33,16 @@ int main() {
 	tileMap.setMapPosition(0,0);
     tileMap.setTileData(AssetLoader::getTileDataArray());
     
+    tileMap.setTiles(sf::Vector2u(2, 2), sf::Vector2u(7, 2), 1);
+    
+   // tileMap.setTile(sf::Vector2u(1, 1), 1);
+    
+    tileMap.constructPathNetworkInArea(sf::Vector2u(0, 0), sf::Vector2u(20, 20));
     
 	Ant ant = Ant(sf::Vector2f(100, 100));
     
-    sf::Sprite testSprite;
-    sf::Texture testTex;
-    testTex.loadFromFile("madAnt.png");
-    testSprite.setTexture(testTex);
-    
-    testSprite.setPosition(400, 300);
+    ant.joinPathNetwork(&tileMap.getWorldPathNetwork(), 0);
+
     
 	while (gameWindow.isOpen()) {
 		 
@@ -56,11 +57,13 @@ int main() {
 		
 		gameWindow.clear(sf::Color(225,225,225,225));
 
+        
+        ant.update(deltaTime.asSeconds());
+        
 		tileMap.draw(gameWindow, view );
 		ant.draw(gameWindow);
         
-        gameWindow.draw(testSprite);
-
+        
         updateCamera(deltaTime.asSeconds(), view, gameWindow);
         gameWindow.setView(view);
 		gameWindow.display();

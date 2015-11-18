@@ -55,11 +55,16 @@ public:
     //sets the tile at tileGridPosition to the value newValue
     void setTile(sf::Vector2u tileGridPosition, uint8_t newValue);
     
+    //sets all tiles in the given rectangle in grid space to the given value
+    void setTiles(sf::Vector2u gridStart, sf::Vector2u gridEnd, uint8_t newValue);
+    
     //Sets each tile to a random value. Just for testing (it's not even random anymore)
     void randomizeMap();
     
     //Constructs the world-space
     void constructPathNetworkInArea(sf::Vector2u start, sf::Vector2u end);
+    
+    PathNetwork & getWorldPathNetwork();
 private:
     //Will return the map tile that the point is within
     sf::Vector2u getMapIndexAtPosition(float x, float y);

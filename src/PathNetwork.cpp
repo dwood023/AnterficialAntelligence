@@ -14,6 +14,20 @@
 //Network ID method
 
 
+bool PathNetwork::getConnectedNodes( int nodeID ,std::vector<PathNode*> & connectedNodesOut){
+    if((nodeID > (allNodes.size() - 1))  ||  (nodeID < 0)){
+        return false;
+    }
+    
+    const PathNode & node = allNodes[nodeID];
+    
+    for(int i = 0; i < node.connectedNodeNetIDs.size(); ++i){
+        connectedNodesOut.push_back(&allNodes[node.connectedNodeNetIDs[i]]);
+    }
+    
+    return true;
+}
+
 
 
 bool PathNetwork::createNewNode(sf::Vector2f newNodePos){
@@ -65,6 +79,14 @@ void PathNetwork::moveNetwork(sf::Vector2f offset){
     for(int i = 0; i < allNodes.size(); ++i){
         allNodes[i].move(offset.x, offset.y);
     }
+}
+
+PathNode * PathNetwork::getNode(int nodeNetID){
+    if(nodeNetID > (allNodes.size() - 1)  ||  nodeNetID < 0){
+        return nullptr;
+    }
+    
+    return &allNodes[nodeNetID];
 }
 
 

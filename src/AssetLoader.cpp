@@ -40,7 +40,7 @@ namespace AssetLoader {
 
 	sf::Sprite getSpriteEarthHorizontalTunnel() {
 		 
-		return AssetLoader::getSprite(0, 256);
+		return AssetLoader::getSprite(256, 0);
 
 	}
     
@@ -58,7 +58,7 @@ namespace AssetLoader {
     
     
     TileData getTileDataHorizontalTunnel(){
-        TileData horiTunnel(getSpriteEarth());
+        TileData horiTunnel(getSpriteEarthHorizontalTunnel());
         horiTunnel.localPathNetwork.createNewNode(sf::Vector2f(0, 154));
         horiTunnel.localPathNetwork.createNewNodeConnectedTo(sf::Vector2f(255, 154), 0);
         return horiTunnel;
