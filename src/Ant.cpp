@@ -5,6 +5,7 @@
 
 Ant::Ant(sf::Vector2f newPosition) {
     sprite = AssetLoader::getSpriteAnt();
+    
     setPosition(newPosition);
     pathNetMoveComp.setPosition(getPosition());
 }
@@ -24,6 +25,7 @@ void Ant::draw(sf::RenderWindow &window) {
 void Ant::setPosition(sf::Vector2f newPosition) {
     sprite.setPosition(newPosition);
 }
+
 
 void Ant::move(sf::Vector2f offset){
     setPosition(getPosition() + offset);

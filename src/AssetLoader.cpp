@@ -21,15 +21,17 @@ namespace AssetLoader {
 	}
 
 	sf::Sprite getSpriteAnt() {
-		 
-		return AssetLoader::getSprite(0, 0);
-
+        sf::Sprite antSprite = AssetLoader::getSprite(0, 0);
+        antSprite.setOrigin(antSprite.getTextureRect().width / 2.0f,  190);
+        
+		return antSprite;
 	}
 
 	sf::Sprite getSpriteIrateAnt() {
-
-		return AssetLoader::getSprite(256, 256);
-
+        sf::Sprite irateAntSprite = AssetLoader::getSprite(256, 256);
+        irateAntSprite.setOrigin(irateAntSprite.getTextureRect().width / 2.0f,  190);
+        
+		return irateAntSprite;
 	}
 
 	sf::Sprite getSpriteEarth() {

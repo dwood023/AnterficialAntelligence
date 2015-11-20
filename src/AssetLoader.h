@@ -10,6 +10,7 @@ namespace AssetLoader {
     //Constructor loads the textureSheet from file
     void loadTextures();
 
+    //For now, at least, ant sprites should have their origin set to where the ant's feet appear on the sprite
     sf::Sprite getSpriteAnt();
 
     sf::Sprite getSpriteIrateAnt();
