@@ -7,7 +7,6 @@ Ant::Ant(sf::Vector2f newPosition)
 	:idleAnimation(AssetLoader::getAntIdleAnimation())
 {
     sprite = AssetLoader::getSpriteAnt();
-    
     setPosition(newPosition);
     pathNetMoveComp.setPosition(getPosition());
 }
