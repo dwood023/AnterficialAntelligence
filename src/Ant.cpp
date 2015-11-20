@@ -3,7 +3,9 @@
 #include "AssetLoader.h"
 #include "MathLib.h"
 
-Ant::Ant(sf::Vector2f newPosition) {
+Ant::Ant(sf::Vector2f newPosition)
+	:idleAnimation(AssetLoader::getAntIdleAnimation())
+{
     sprite = AssetLoader::getSpriteAnt();
     
     setPosition(newPosition);
@@ -13,6 +15,7 @@ Ant::Ant(sf::Vector2f newPosition) {
 void Ant::update(float deltaTime){
     brain.think(deltaTime, *this);
     setPosition(pathNetMoveComp.getPosition());
+	idleAnimation.update(sprite, deltaTime);
 }
 
 
