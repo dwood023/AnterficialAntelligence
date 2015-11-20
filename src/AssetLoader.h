@@ -4,6 +4,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "TileData.h"
+#include "Animation.h"
 
 namespace AssetLoader {
 		
@@ -17,6 +18,8 @@ namespace AssetLoader {
 
     sf::Sprite getSpriteEarth();
 
+	Animation getAntIdleAnimation();
+
     sf::Sprite getSpriteEarthHorizontalTunnel();
     
     std::vector<TileData> getTileDataArray();
@@ -28,6 +31,8 @@ namespace AssetLoader {
 	namespace {
 		 
 		sf::Texture textureSheet;
+
+		sf::Texture antIdleTexture;
 
 		// Called by getSpriteXXXXX functions to take a rect of the textureSheet, arguments are top
 		// left coordinates and take a 256x256 pixel rect from there

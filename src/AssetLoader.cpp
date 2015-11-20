@@ -1,4 +1,5 @@
 #include "AssetLoader.h"
+#include "Animation.h"
 #include <SFML/Graphics.hpp>
 #include <string>
 
@@ -7,6 +8,8 @@ namespace AssetLoader {
 	void loadTextures() {
 			 
 		textureSheet.loadFromFile("./data/textureSheet.png"); 
+
+		antIdleTexture.loadFromFile("./data/AntIdle.png");
 
 	}
 
@@ -20,9 +23,23 @@ namespace AssetLoader {
 
 	}
 
+	Animation getAntIdleAnimation() {
+
+		std::vector<sf::IntRect> frames = {
+			 {0,0,128,128},
+			 {128,0,128,128},
+			 {0,128,128,128}
+		};
+
+		return Animation(frames, 10);
+
+	}
+
 	sf::Sprite getSpriteAnt() {
-        sf::Sprite antSprite = AssetLoader::getSprite(0, 0);
-        antSprite.setOrigin(antSprite.getTextureRect().width / 2.0f,  190);
+        sf::Sprite antSprite;
+
+		antSprite.setTexture(antIdleTexture);
+        //antSprite.setOrigin(antSprite.getTextureRect().width / 2.0f,  190);
         
 		return antSprite;
 	}

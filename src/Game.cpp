@@ -17,7 +17,7 @@ int main() {
 
 	AssetLoader::loadTextures(); 
 
-
+	gameWindow.setFramerateLimit(60);
 
 	sf::View view;
 
