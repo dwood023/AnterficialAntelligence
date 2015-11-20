@@ -38,7 +38,7 @@ sf::Vector2f TileMap::getMapPosition() const{
     return position;
 }
 
-inline uint8_t TileMap::getTile(unsigned int x, unsigned int y){
+uint8_t TileMap::getTile(unsigned int x, unsigned int y) const{
     return map[y][x];
 }
 
@@ -147,7 +147,14 @@ PathNetwork & TileMap::getWorldPathNetwork(){
     return worldPathNetwork;
 }
 
+const TileData & TileMap::getTileData(sf::Vector2u gridPosition) const{
+    return tileDataArray[getTile(gridPosition.x, gridPosition.y)];
+}
 
+void TileMap::transformTile(sf::Vector2u tile, const TileTransformation & transformation){
+//    uint8_t newTileValue = ;
+//    setTile(tile, );
+}
 
 sf::Vector2u TileMap::getMapIndexAtPosition(float x, float y){
     //Set x and y to map local space

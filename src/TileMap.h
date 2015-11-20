@@ -46,8 +46,8 @@ public:
     //The position, in coordinates that the top left of the map will be
     void setMapPosition(float x, float y);
     
-    //gets the index if the tile at the grid position x, y
-    inline uint8_t getTile(unsigned int x, unsigned int y);
+    //gets the index of the tile at the grid position x, y
+    uint8_t getTile(unsigned int x, unsigned int y) const;
     
     //gets the world-space position (coordinates) of the tile at the grid position x, y
     inline sf::Vector2f getPositionOfTile(unsigned int x, unsigned int y);
@@ -65,6 +65,11 @@ public:
     void constructPathNetworkInArea(sf::Vector2u start, sf::Vector2u end);
     
     PathNetwork & getWorldPathNetwork();
+    
+    //get the generic data for the tile at gridPosition
+    const TileData & getTileData(sf::Vector2u gridPosition) const;
+    
+    void transformTile(sf::Vector2u tile, const TileTransformation & transformation);
 private:
     //Will return the map tile that the point is within
     sf::Vector2u getMapIndexAtPosition(float x, float y);
