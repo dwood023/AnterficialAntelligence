@@ -9,7 +9,7 @@
 #ifndef __AntificialAntelligence__PathNetwork__
 #define __AntificialAntelligence__PathNetwork__
 
-#include <stdio.h>
+#include <initializer_list>
 #include "PathNode.h"
 
 
@@ -29,6 +29,12 @@ public:
     bool createNewNodeConnectedTo(sf::Vector2f newNodePos, int nodeIDToConnectTo);
 
     bool createNewNodeConnectedTo(sf::Vector2f newNodePos, std::vector<int> nodeIDsToConnectTo);
+    
+    //adds a string of connected nodes
+    bool createNewNodeString(std::initializer_list<sf::Vector2f> newNodes);
+    
+    //adds a string of connected nodes, the first of which will be connected to the specified node
+    bool createNewNodeStringConnectedTo(std::initializer_list<sf::Vector2f> newNodes, int nodeIDToConnectTo);
     
     //Moves every node by the specified offset, in world-space
     void moveNetwork(float x, float y);
