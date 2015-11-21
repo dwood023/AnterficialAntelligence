@@ -9,23 +9,6 @@
 #include "PathNode.h"
 #include <iostream>
 
-//Node pointer method
-//
-//PathNode::PathNode(float posX, float posY){
-//    position.x = posX;
-//    position.y = posY;
-//}
-//
-//PathNode::PathNode(sf::Vector2f pos){
-//    position = pos;
-//}
-//
-//
-//const std::vector<PathNode*> & PathNode::getConnectedNodes(){
-//    return connectedNodes;
-//}
-
-
 
 //Network ID method
 

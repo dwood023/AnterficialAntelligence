@@ -16,11 +16,7 @@ namespace AssetLoader {
 
     sf::Sprite getSpriteIrateAnt();
 
-    sf::Sprite getSpriteEarth();
-
 	Animation getAntIdleAnimation();
-
-    sf::Sprite getSpriteEarthHorizontalTunnel();
     
     std::vector<TileData> getTileDataArray();
 
@@ -28,18 +24,24 @@ namespace AssetLoader {
     
     TileData getTileDataHorizontalTunnel();
     
+    TileData getTileData0To90BendTunnel();
+    
+    TileData getTileDataVerticleTunnel();
+    
 	namespace {
 		 
 		sf::Texture textureSheet;
-
+        
+        sf::Texture tunnel0To90Tex;
+        sf::Texture tunnelVertTex;
+        sf::Texture tunnelHoriTex;
+        
 		sf::Texture antIdleTexture;
 
 		// Called by getSpriteXXXXX functions to take a rect of the textureSheet, arguments are top
 		// left coordinates and take a 256x256 pixel rect from there
 		sf::Sprite getSprite(unsigned int x, unsigned int y);
-
 	}
-
 };
 
 

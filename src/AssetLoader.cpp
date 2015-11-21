@@ -4,13 +4,18 @@
 #include <string>
 
 namespace AssetLoader {
-
+    
 	void loadTextures() {
 			 
 		textureSheet.loadFromFile("./data/textureSheet.png"); 
 
 		antIdleTexture.loadFromFile("./data/AntIdle.png");
 
+        tunnel0To90Tex.loadFromFile("./data/EarthTunnelBend.png");
+        
+        tunnelVertTex.loadFromFile("./data/EarthTunnelVtl.png");
+        
+        tunnelHoriTex.loadFromFile("./data/EarthTunnelHzt.png");
 	}
 
 	sf::Sprite getSprite(unsigned int x, unsigned int y) {
@@ -51,17 +56,6 @@ namespace AssetLoader {
 		return irateAntSprite;
 	}
 
-	sf::Sprite getSpriteEarth() {
-		 
-		return AssetLoader::getSprite(0, 256);
-
-	} 
-
-	sf::Sprite getSpriteEarthHorizontalTunnel() {
-		 
-		return AssetLoader::getSprite(256, 0);
-
-	}
     
     
     std::vector<TileData> getTileDataArray(){
@@ -71,15 +65,38 @@ namespace AssetLoader {
     
     
     TileData getTileDataSolidEarth(){
-        TileData solidEarth(getSpriteEarth());
+        sf::Sprite solidEarthSprite;
+        TileData solidEarth(solidEarthSprite);
         return solidEarth;
     }
     
     
     TileData getTileDataHorizontalTunnel(){
-        TileData horiTunnel(getSpriteEarthHorizontalTunnel());
+        sf::Sprite sprite;
+        TileData horiTunnel(sprite);
         horiTunnel.localPathNetwork.createNewNode(sf::Vector2f(0, 154));
         horiTunnel.localPathNetwork.createNewNodeConnectedTo(sf::Vector2f(255, 154), 0);
         return horiTunnel;
     }
+    
+    typedef sf::Vector2f Vec2;
+    
+    TileData getTileData0To90BendTunnel(){
+        sf::Sprite bendTunSprite;
+        bendTunSprite.setTexture(tunnel0To90Tex);
+
+        TileData topToRightTunnel(bendTunSprite);
+        
+        topToRightTunnel.localPathNetwork.createNewNodeString( {Vec2(36, 0), Vec2(37, 31), Vec2(46, 60), Vec2(71, 82), Vec2(116, 94), Vec2(128, 95)} );
+        
+        return topToRightTunnel;
+    }
+    
+    TileData getTileDataVerticleTunnel(){
+        sf::Sprite sprite;
+        TileData vertTunnel(sprite);
+        return vertTunnel;
+    }
 }
+
+

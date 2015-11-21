@@ -32,7 +32,7 @@ bool PathNetwork::getConnectedNodes( int nodeID ,std::vector<PathNode*> & connec
 
 bool PathNetwork::createNewNode(sf::Vector2f newNodePos){
     allNodes.push_back(PathNode(newNodePos));
-    allNodes[allNodes.size() - 1].setNetID(allNodes.size() -1);
+    allNodes[allNodes.size() - 1].setNetID(static_cast<int>(allNodes.size() -1));
     return true;
 }
 
@@ -65,6 +65,25 @@ bool PathNetwork::createNewNodeConnectedTo(sf::Vector2f newNodePos, std::vector<
         connectNodes(nodeIDsToConnectTo[i], allNodes[allNodes.size() - 1].getNetID());
     }
     
+    return true;
+}
+
+bool PathNetwork::createNewNodeString(std::initializer_list<sf::Vector2f> newNodes){
+    createNewNode(*newNodes.begin());
+    for(auto itr = (newNodes.begin() + 1); itr < newNodes.end(); ++itr){
+        createNewNodeConnectedTo(*itr, static_cast<int>(allNodes.size() - 1));
+    }
+    return true;
+}
+
+bool PathNetwork::createNewNodeStringConnectedTo(std::initializer_list<sf::Vector2f> newNodes, int nodeIDToConnectTo){
+    if(nodeIDToConnectTo > (allNodes.size() - 1))
+        return false;
+    
+    int firstNodeID= static_cast<int>(allNodes.size());
+    createNewNodeString(newNodes);
+    
+    connectNodes(firstNodeID, nodeIDToConnectTo);
     return true;
 }
 
