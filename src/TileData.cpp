@@ -24,5 +24,10 @@ const std::vector<TileTransformation> & TileData::getPossibleTransformations() c
 //______________TileTransformation_____________
 
 TileTransformation::TileTransformation(const TileData & tileData){
-    endTile = &tileData;
+    finalTile = &tileData;
+}
+
+
+TileData const * TileTransformation::getFinalTile() const{
+    return finalTile;
 }

@@ -75,7 +75,9 @@ void TileMap::draw(sf::RenderWindow & window, sf::View & view){
 
 void TileMap::setTileData(const std::vector<TileData> & newData){
     tileDataArray = newData;
-    
+    for(int i = 0; i < tileDataArray.size(); ++i){
+        tileDataArray[i].tileDataArrayID = 0;
+    }
 }
 
 
@@ -152,8 +154,8 @@ const TileData & TileMap::getTileData(sf::Vector2u gridPosition) const{
 }
 
 void TileMap::transformTile(sf::Vector2u tile, const TileTransformation & transformation){
-//    uint8_t newTileValue = ;
-//    setTile(tile, );
+    uint8_t newTileValue = transformation.getFinalTile()->tileDataArrayID;
+    setTile(tile, newTileValue);
 }
 
 sf::Vector2u TileMap::getMapIndexAtPosition(float x, float y){

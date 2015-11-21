@@ -18,6 +18,7 @@ class TileTransformation;
 
 //Holder for the visuals of a tile, and the coresponding path data
 class TileData{
+    friend class TileMap;
 public:
     TileData(sf::Sprite newSprite);
     //The local space path network for this tile
@@ -32,8 +33,8 @@ public:
 private:
     std::vector<TileTransformation> posibleTransformations;
     
-    //
-    uint8_t arrayIndex;
+    //Position of this instance of TileData in the TileMap tileDataArray
+    uint8_t tileDataArrayID;
 };
 
 
@@ -42,8 +43,10 @@ private:
 class TileTransformation{
 public:
     TileTransformation(const TileData & tile);
+    
+    TileData const * getFinalTile() const;
 private:
     //The tile that will replace the original when the transformation is complete
-    TileData const * endTile;
+    TileData const * finalTile;
 };
 #endif /* defined(__AntificialAntelligence__TileData__) */
