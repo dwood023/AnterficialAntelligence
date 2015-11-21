@@ -6,41 +6,60 @@
 #include "TileData.h"
 #include "Animation.h"
 
+
 namespace AssetLoader {
-		
+    
     //Constructor loads the textureSheet from file
     void loadTextures();
 
     //For now, at least, ant sprites should have their origin set to where the ant's feet appear on the sprite
     sf::Sprite getSpriteAnt();
 
-    sf::Sprite getSpriteIrateAnt();
-
 	Animation getAntIdleAnimation();
     
+    //Tile Data
+    //Should be update to match the indexes of getTileDataArray()
+    enum TileType{
+        SOLID,
+        VERT,
+        HORI,
+        BEND_RIGHT_BOTTOM,
+        BRANCH_LEFT_BOTTOM_RIGHT,
+        BEND_LEFT_BOTTOM,
+        BRANCH_TOP_RIGHT_BOTTOM,
+        BRANCH_LEFT_TOP_RIGHT_BOTTOM,
+        BRANCH_LEFT_TOP_BOTTOM,
+        BEND_TOP_RIGHT,
+        BRANCH_LEFT_TOP_RIGHT,
+        BRANCH_BEND_TOP_LEFT
+    };
+    
     std::vector<TileData> getTileDataArray();
-
+    
+    //the points on the edge of the tile, to ensure they join up
+    const sf::Vector2f leftPoint(0, 108);
+    const sf::Vector2f topPoint(20, 0);
+    const sf::Vector2f rightPoint(128, 108);
+    const sf::Vector2f bottomPoint(20, 128);
+    
     TileData getTileDataSolidEarth();
-    
-    TileData getTileDataHorizontalTunnel();
-    
-    TileData getTileData0To90BendTunnel();
-    
     TileData getTileDataVerticleTunnel();
+    TileData getTileDataHorizontalTunnel();
+    TileData getTileDataBendRightBottom();
+    TileData getTileDataBranchLeftDownRight();
+    TileData getTileDataBendLeftBottom();
+    TileData getTileDataBranchTopRightBottom();
+    TileData getTileDataBranchLeftTopRightBottom();
+    TileData getTileDataBranchLeftTopBottom();
+    TileData getTileDataBendTopRight();
+    TileData getTileDataBranchLeftTopRight();
+    TileData getTileDataBendLeftTop();
     
 	namespace {
 		 
-		sf::Texture textureSheet;
-        
-        sf::Texture tunnel0To90Tex;
-        sf::Texture tunnelVertTex;
-        sf::Texture tunnelHoriTex;
+		sf::Texture earthTextureSheet;
         
 		sf::Texture antIdleTexture;
-
-		// Called by getSpriteXXXXX functions to take a rect of the textureSheet, arguments are top
-		// left coordinates and take a 256x256 pixel rect from there
-		sf::Sprite getSprite(unsigned int x, unsigned int y);
 	}
 };
 

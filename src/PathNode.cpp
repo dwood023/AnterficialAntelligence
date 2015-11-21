@@ -32,7 +32,6 @@ PathNode::PathNode(sf::Vector2f pos){
 
 void PathNode::setNetID(int newID){
     netID = newID;
-    std::cout<<"set node's net ID to: "<<netID<<std::endl;
 }
 
 void PathNode::move(float x, float y){

@@ -28,7 +28,7 @@ public:
     //Will allocate the new node internally, indexOfNodeToConnectTo must be an index in the allNodes
     bool createNewNodeConnectedTo(sf::Vector2f newNodePos, int nodeIDToConnectTo);
 
-    bool createNewNodeConnectedTo(sf::Vector2f newNodePos, std::vector<int> nodeIDsToConnectTo);
+    bool createNewNodeConnectedTo(sf::Vector2f newNodePos, std::initializer_list<int> nodeIDsToConnectTo);
     
     //adds a string of connected nodes
     bool createNewNodeString(std::initializer_list<sf::Vector2f> newNodes);

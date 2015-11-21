@@ -3,30 +3,18 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
+
+
+
 namespace AssetLoader {
     
 	void loadTextures() {
 			 
-		textureSheet.loadFromFile("./data/textureSheet.png"); 
+		earthTextureSheet.loadFromFile("./data/EarthSheet.png");
 
 		antIdleTexture.loadFromFile("./data/AntIdle.png");
-
-        tunnel0To90Tex.loadFromFile("./data/EarthTunnelBend.png");
-        
-        tunnelVertTex.loadFromFile("./data/EarthTunnelVtl.png");
-        
-        tunnelHoriTex.loadFromFile("./data/EarthTunnelHzt.png");
 	}
 
-	sf::Sprite getSprite(unsigned int x, unsigned int y) {
-		 
-		sf::Sprite spriteRect;
-		spriteRect.setTexture(textureSheet);
-		spriteRect.setTextureRect(sf::IntRect(x, y, 256, 256));
-
-		return spriteRect;
-
-	}
 
 	Animation getAntIdleAnimation() {
 
@@ -44,58 +32,148 @@ namespace AssetLoader {
         sf::Sprite antSprite;
 
 		antSprite.setTexture(antIdleTexture);
-        //antSprite.setOrigin(antSprite.getTextureRect().width / 2.0f,  190);
+        antSprite.setOrigin(64,  106);
         
 		return antSprite;
 	}
-
-	sf::Sprite getSpriteIrateAnt() {
-        sf::Sprite irateAntSprite = AssetLoader::getSprite(256, 256);
-        irateAntSprite.setOrigin(irateAntSprite.getTextureRect().width / 2.0f,  190);
-        
-		return irateAntSprite;
-	}
-
-    
     
     std::vector<TileData> getTileDataArray(){
-        std::vector<TileData> dataArray{getTileDataSolidEarth(), getTileDataHorizontalTunnel()};
+        std::vector<TileData> dataArray{getTileDataSolidEarth(), getTileDataVerticleTunnel(),
+                                                            getTileDataHorizontalTunnel(), getTileDataBendRightBottom(),
+                                                            getTileDataBranchLeftDownRight(), getTileDataBendLeftBottom(),
+                                                            getTileDataBranchTopRightBottom(), getTileDataBranchLeftTopRightBottom(),
+                                                            getTileDataBranchLeftTopBottom(), getTileDataBendTopRight(),
+                                                            getTileDataBranchLeftTopRight(), getTileDataBendLeftTop()};
         return dataArray;
     }
     
     
     TileData getTileDataSolidEarth(){
         sf::Sprite solidEarthSprite;
+        solidEarthSprite.setTexture(earthTextureSheet);
+        solidEarthSprite.setTextureRect( {768, 0, 128, 128} );
         TileData solidEarth(solidEarthSprite);
         return solidEarth;
     }
     
     
     TileData getTileDataHorizontalTunnel(){
-        sf::Sprite sprite;
-        TileData horiTunnel(sprite);
-        horiTunnel.localPathNetwork.createNewNode(sf::Vector2f(0, 154));
-        horiTunnel.localPathNetwork.createNewNodeConnectedTo(sf::Vector2f(255, 154), 0);
+        sf::Sprite horiSprite;
+        horiSprite.setTexture(earthTextureSheet);
+        horiSprite.setTextureRect( {256, 0, 128, 128} );
+        TileData horiTunnel(horiSprite);
+        horiTunnel.localPathNetwork.createNewNode(leftPoint);
+        horiTunnel.localPathNetwork.createNewNodeConnectedTo(rightPoint, 0);
         return horiTunnel;
     }
     
-    typedef sf::Vector2f Vec2;
-    
-    TileData getTileData0To90BendTunnel(){
-        sf::Sprite bendTunSprite;
-        bendTunSprite.setTexture(tunnel0To90Tex);
-
-        TileData topToRightTunnel(bendTunSprite);
+    TileData getTileDataVerticleTunnel(){
+        sf::Sprite vertSprite;
+        vertSprite.setTexture(earthTextureSheet);
+        vertSprite.setTextureRect({128, 0, 128, 128});
+        TileData vertTunnel(vertSprite);
+        vertTunnel.localPathNetwork.createNewNodeString( { topPoint, bottomPoint });
         
-        topToRightTunnel.localPathNetwork.createNewNodeString( {Vec2(36, 0), Vec2(37, 31), Vec2(46, 60), Vec2(71, 82), Vec2(116, 94), Vec2(128, 95)} );
-        
-        return topToRightTunnel;
+        return vertTunnel;
     }
     
-    TileData getTileDataVerticleTunnel(){
+    TileData getTileDataBendRightBottom(){
         sf::Sprite sprite;
-        TileData vertTunnel(sprite);
-        return vertTunnel;
+        sprite.setTexture(earthTextureSheet);
+        sprite.setTextureRect( {384, 0, 128, 128});
+        TileData bendBotRight(sprite);
+        bendBotRight.localPathNetwork.createNewNodeString({ rightPoint, bottomPoint });
+        
+        return bendBotRight;
+    }
+
+    TileData getTileDataBranchLeftDownRight(){
+        sf::Sprite sprite;
+        sprite.setTexture(earthTextureSheet);
+        sprite.setTextureRect({512, 0, 128, 128});
+        TileData branchRLD(sprite);
+        
+        branchRLD.localPathNetwork.createNewNodeString( { leftPoint, bottomPoint} );
+        branchRLD.localPathNetwork.createNewNodeConnectedTo( rightPoint, 0);
+        return branchRLD;
+    }
+    
+
+    
+    TileData getTileDataBendLeftBottom(){
+        sf::Sprite rToBSprite;
+        rToBSprite.setTexture(earthTextureSheet);
+        rToBSprite.setTextureRect({640, 0, 128, 128});
+        TileData rToB(rToBSprite);
+        rToB.localPathNetwork.createNewNodeString( { leftPoint , bottomPoint} );
+        
+        return rToB;
+    }
+    
+    TileData getTileDataBranchTopRightBottom(){
+        sf::Sprite sprite;
+        sprite.setTexture(earthTextureSheet);
+        sprite.setTextureRect( {0, 128, 128, 128});
+        TileData branchTRB(sprite);
+        branchTRB.localPathNetwork.createNewNodeString( { topPoint, bottomPoint } );
+        branchTRB.localPathNetwork.createNewNodeConnectedTo( rightPoint, 1);
+        
+        return branchTRB;
+    }
+    
+    TileData getTileDataBranchLeftTopRightBottom(){
+        sf::Sprite sprite;
+        sprite.setTexture(earthTextureSheet);
+        sprite.setTextureRect( {128, 128, 128, 128} );
+        TileData branchLTRB(sprite);
+        branchLTRB.localPathNetwork.createNewNode(leftPoint);
+        branchLTRB.localPathNetwork.createNewNodeConnectedTo( topPoint, 0);
+        branchLTRB.localPathNetwork.createNewNodeConnectedTo( rightPoint, {0, 1});
+        branchLTRB.localPathNetwork.createNewNodeConnectedTo( bottomPoint, {0, 1, 2});
+        
+        return branchLTRB;
+    }
+    
+    TileData getTileDataBranchLeftTopBottom(){
+        sf::Sprite sprite;
+        sprite.setTexture(earthTextureSheet);
+        sprite.setTextureRect({256, 128, 128, 128});
+        TileData branchLTB(sprite);
+        branchLTB.localPathNetwork.createNewNodeString({ leftPoint, topPoint});
+        branchLTB.localPathNetwork.createNewNodeConnectedTo(bottomPoint, 0);
+        
+        return branchLTB;
+    }
+    
+    TileData getTileDataBendTopRight(){
+        sf::Sprite sprite;
+        sprite.setTexture(earthTextureSheet);
+        sprite.setTextureRect( {384, 128, 128, 128});
+        TileData bendTR(sprite);
+        bendTR.localPathNetwork.createNewNodeString({topPoint, { 47, 69}, rightPoint});
+        
+        return bendTR;
+    }
+    
+    TileData getTileDataBranchLeftTopRight(){
+        sf::Sprite sprite;
+        sprite.setTexture(earthTextureSheet);
+        sprite.setTextureRect({512, 128, 128, 128});
+        TileData branchLTR(sprite);
+        branchLTR.localPathNetwork.createNewNodeString({rightPoint, leftPoint});
+        branchLTR.localPathNetwork.createNewNodeConnectedTo(topPoint, 0);
+        
+        return branchLTR;
+    }
+    
+    TileData getTileDataBendLeftTop(){
+        sf::Sprite sprite;
+        sprite.setTexture(earthTextureSheet);
+        sprite.setTextureRect({640, 128, 128, 128});
+        TileData bendLT(sprite);
+        bendLT.localPathNetwork.createNewNodeString({rightPoint, topPoint});
+        
+        return bendLT;
     }
 }
 
