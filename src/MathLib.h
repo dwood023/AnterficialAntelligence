@@ -40,8 +40,8 @@ namespace MathLib{
     
     //The rotation of the vector, in degrees, where (1, 0) is 0 degrees
     template<typename T> double rotation(const sf::Vector2<T> & vec){
-        const double smallangRad = atan(vec.x / vec.y);
-        const double fullangDeg = 90 - radsToDegrees(smallangRad);
+     //   const double smallangRad = atan(vec.x / vec.y);
+       // const double fullangDeg = 90 - radsToDegrees(smallangRad);
         
         return 1234;
     }

@@ -14,8 +14,9 @@
 //Network ID method
 
 
-bool PathNetwork::getConnectedNodes( int nodeID ,std::vector<PathNode*> & connectedNodesOut){
-    if((nodeID > (allNodes.size() - 1))  ||  (nodeID < 0)){
+bool PathNetwork::getConnectedNodes(unsigned int nodeID ,std::vector<PathNode*> & connectedNodesOut){
+    if((nodeID > (allNodes.size() - 1))){
+        std::cout<<"invalid node ID in PathNetwork::getConnectedNodes\n";
         return false;
     }
     
@@ -37,7 +38,7 @@ bool PathNetwork::createNewNode(sf::Vector2f newNodePos){
 }
 
 
-bool PathNetwork::createNewNodeConnectedTo(sf::Vector2f newNodePos,  int nodeIDToConnectTo){
+bool PathNetwork::createNewNodeConnectedTo(sf::Vector2f newNodePos,  unsigned int nodeIDToConnectTo){
     if(nodeIDToConnectTo > (allNodes.size() - 1)){
         return false;
     }
@@ -51,7 +52,7 @@ bool PathNetwork::createNewNodeConnectedTo(sf::Vector2f newNodePos,  int nodeIDT
 }
 
 
-bool PathNetwork::createNewNodeConnectedTo(sf::Vector2f newNodePos, std::initializer_list<int> nodeIDsToConnectTo){
+bool PathNetwork::createNewNodeConnectedTo(sf::Vector2f newNodePos, std::initializer_list<unsigned int> nodeIDsToConnectTo){
     for(auto itr = nodeIDsToConnectTo.begin(); itr < nodeIDsToConnectTo.end(); ++itr){
         if(*itr > (allNodes.size() - 1)){
             return false;
@@ -76,7 +77,7 @@ bool PathNetwork::createNewNodeString(std::initializer_list<sf::Vector2f> newNod
     return true;
 }
 
-bool PathNetwork::createNewNodeStringConnectedTo(std::initializer_list<sf::Vector2f> newNodes, int nodeIDToConnectTo){
+bool PathNetwork::createNewNodeStringConnectedTo(std::initializer_list<sf::Vector2f> newNodes, unsigned int nodeIDToConnectTo){
     if(nodeIDToConnectTo > (allNodes.size() - 1))
         return false;
     
@@ -100,8 +101,9 @@ void PathNetwork::moveNetwork(sf::Vector2f offset){
     }
 }
 
-PathNode * PathNetwork::getNode(int nodeNetID){
-    if(nodeNetID > (allNodes.size() - 1)  ||  nodeNetID < 0){
+PathNode * PathNetwork::getNode(unsigned int nodeNetID){
+    if(nodeNetID > (allNodes.size() - 1)){
+        std::cout<<"invalid node ID in PathNetwork::getNode\n";
         return nullptr;
     }
     
@@ -146,7 +148,7 @@ void PathNetwork::assimilateNetwork(const PathNetwork &otherNetwork, sf::Vector2
 }
 
 
-bool PathNetwork::connectNodes(int Id1, int Id2){
+bool PathNetwork::connectNodes(unsigned int Id1, unsigned int Id2){
     if(Id1 > (allNodes.size() - 1)   ||  Id2 > (allNodes.size() - 1)){
         return false;
     }
@@ -158,7 +160,7 @@ bool PathNetwork::connectNodes(int Id1, int Id2){
 }
 
 
-void PathNetwork::mergeNodes(int Id1, int Id2){
+void PathNetwork::mergeNodes(unsigned int Id1, unsigned int Id2){
     if(Id1 == Id2)
         return;
         

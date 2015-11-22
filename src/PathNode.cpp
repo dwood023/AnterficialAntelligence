@@ -12,7 +12,7 @@
 
 //Network ID method
 
-int PathNode::getNetID(){
+unsigned int PathNode::getNetID(){
     return netID;
 }
 
@@ -30,7 +30,7 @@ PathNode::PathNode(sf::Vector2f pos){
     position = pos;
 }
 
-void PathNode::setNetID(int newID){
+void PathNode::setNetID(unsigned int newID){
     netID = newID;
 }
 

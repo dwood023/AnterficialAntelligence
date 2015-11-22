@@ -18,7 +18,7 @@
 class PathNetwork{
 public:
     //will return false if nodeID is invalid
-    bool getConnectedNodes( int nodeNetID ,std::vector<PathNode*> & connectedNodesOut);
+    bool getConnectedNodes( unsigned int nodeNetID ,std::vector<PathNode*> & connectedNodesOut);
     
     //All these createNewNode functions return true if successful, and false if not (likely due to index of node to connect to being valid)
 
@@ -26,15 +26,15 @@ public:
     bool createNewNode(sf::Vector2f newNodePos);
 
     //Will allocate the new node internally, indexOfNodeToConnectTo must be an index in the allNodes
-    bool createNewNodeConnectedTo(sf::Vector2f newNodePos, int nodeIDToConnectTo);
+    bool createNewNodeConnectedTo(sf::Vector2f newNodePos, unsigned int nodeIDToConnectTo);
 
-    bool createNewNodeConnectedTo(sf::Vector2f newNodePos, std::initializer_list<int> nodeIDsToConnectTo);
+    bool createNewNodeConnectedTo(sf::Vector2f newNodePos, std::initializer_list<unsigned int> nodeIDsToConnectTo);
     
     //adds a string of connected nodes
     bool createNewNodeString(std::initializer_list<sf::Vector2f> newNodes);
     
     //adds a string of connected nodes, the first of which will be connected to the specified node
-    bool createNewNodeStringConnectedTo(std::initializer_list<sf::Vector2f> newNodes, int nodeIDToConnectTo);
+    bool createNewNodeStringConnectedTo(std::initializer_list<sf::Vector2f> newNodes, unsigned int nodeIDToConnectTo);
     
     //Moves every node by the specified offset, in world-space
     void moveNetwork(float x, float y);
@@ -49,15 +49,15 @@ public:
     void assimilateNetwork(const PathNetwork & otherNetwork, sf::Vector2f offsetToNewNodes = sf::Vector2f(0, 0));
     
     //Will return nullptr if nodeNetID is invalid
-    PathNode * getNode(int nodeNetID);
+    PathNode * getNode(unsigned int nodeNetID);
 private:
     std::vector<PathNode> allNodes;
     
     //returns false if either ID is invalid
-    bool connectNodes(int node1ID, int node2ID);
+    bool connectNodes(unsigned int node1ID, unsigned int node2ID);
     
     //PERFORMANCE WARING: pretty hefty
-    void mergeNodes(int node1ID, int node2ID);
+    void mergeNodes(unsigned int node1ID, unsigned int node2ID);
     
     //The distance within which nodes two nodes will be merged during network assimilation
     static constexpr float nodeMergeDistance = 2.0f;

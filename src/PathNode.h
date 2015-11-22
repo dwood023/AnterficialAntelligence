@@ -19,7 +19,7 @@
 class PathNode{
     friend class PathNetwork;
 public:
-    int getNetID();
+    unsigned int getNetID();
     
     sf::Vector2f getPosition() const;
 private:
@@ -32,9 +32,9 @@ private:
     
     //netID is unique to this PathNode within it's current owning network
     //netID is an index in the owning network's std::vector of PathNodes 
-    int netID;
+    unsigned int netID;
     
-    void setNetID(int newNetID);
+    void setNetID(unsigned int newNetID);
 
     std::vector<int> connectedNodeNetIDs;
 };
