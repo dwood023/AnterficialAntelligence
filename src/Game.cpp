@@ -33,11 +33,11 @@ int main() {
 	tileMap.setMapPosition(0,0);
     tileMap.setTileData(AssetLoader::getTileDataArray());
     
-    tileMap.setTiles(sf::Vector2u(2, 2), sf::Vector2u(7, 2), AssetLoader::HORI);
+    tileMap.setTiles(sf::Vector2u(6, 2), sf::Vector2u(7, 2), AssetLoader::HORI);
     
     tileMap.setTile(sf::Vector2u(8, 2), AssetLoader::BRANCH_LEFT_BOTTOM_RIGHT);
     tileMap.setTiles( {8, 3}, {8, 6}, AssetLoader::VERT);
-    tileMap.setTiles( {9, 2}, {11, 2}, AssetLoader::HORI);
+    tileMap.setTiles( {9, 2}, {10, 2}, AssetLoader::HORI);
     
     tileMap.constructPathNetworkInArea(sf::Vector2u(0, 0), sf::Vector2u(20, 20));
     
