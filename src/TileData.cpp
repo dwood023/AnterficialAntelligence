@@ -23,11 +23,11 @@ const std::vector<TileTransformation> & TileData::getPossibleTransformations() c
 
 //______________TileTransformation_____________
 
-TileTransformation::TileTransformation(const TileData & tileData){
-    finalTile = &tileData;
+TileTransformation::TileTransformation(AssetLoader::TileType newFinalTileType){
+    finalTileType = newFinalTileType;
 }
 
 
-TileData const * TileTransformation::getFinalTile() const{
-    return finalTile;
+AssetLoader::TileType TileTransformation::getFinalTileType() const{
+    return finalTileType;
 }

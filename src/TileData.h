@@ -13,6 +13,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "PathNetwork.h"
+#include "AssetLoader.h"
 
 class TileTransformation;
 
@@ -42,11 +43,11 @@ private:
 //Is intended to ultimately store all the intermidiate states of the tile before the transformation is complete
 class TileTransformation{
 public:
-    TileTransformation(const TileData & tile);
+    TileTransformation(AssetLoader::TileType newFinalTileType);
     
-    TileData const * getFinalTile() const;
+    AssetLoader::TileType getFinalTileType() const;
 private:
     //The tile that will replace the original when the transformation is complete
-    TileData const * finalTile;
+    AssetLoader::TileType finalTileType;
 };
 #endif /* defined(__AntificialAntelligence__TileData__) */

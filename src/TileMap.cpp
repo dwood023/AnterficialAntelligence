@@ -21,7 +21,7 @@ void TileMap::setMapSize(unsigned int x, unsigned int y){
 
 sf::Vector2u TileMap::getMapSize() const{
     if(map.size()  && map[0].size()){
-        return sf::Vector2u(map[0].size(),map.size());
+        return sf::Vector2u( static_cast<unsigned int>(map[0].size()), static_cast<unsigned int>(map.size()));
     }
     return sf::Vector2u(0, 0);
 }
@@ -154,8 +154,7 @@ const TileData & TileMap::getTileData(sf::Vector2u gridPosition) const{
 }
 
 void TileMap::transformTile(sf::Vector2u tile, const TileTransformation & transformation){
-    uint8_t newTileValue = transformation.getFinalTile()->tileDataArrayID;
-    setTile(tile, newTileValue);
+    //WORK IN PROGRESS
 }
 
 sf::Vector2u TileMap::getMapIndexAtPosition(float x, float y){

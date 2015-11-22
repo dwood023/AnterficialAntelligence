@@ -1,5 +1,6 @@
 #include "AssetLoader.h"
 #include "Animation.h"
+#include "TileData.h"
 #include <SFML/Graphics.hpp>
 #include <string>
 

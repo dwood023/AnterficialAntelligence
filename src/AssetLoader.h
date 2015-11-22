@@ -3,9 +3,9 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "TileData.h"
 #include "Animation.h"
 
+class TileData;
 
 namespace AssetLoader {
     
