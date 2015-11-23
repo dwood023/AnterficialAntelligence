@@ -15,7 +15,7 @@
 
 
 bool PathNetwork::getConnectedNodes(unsigned int nodeID ,std::vector<PathNode*> & connectedNodesOut){
-    if((nodeID > (allNodes.size() - 1))){
+    if(!isIDValid(nodeID)){
         std::cout<<"invalid node ID in PathNetwork::getConnectedNodes\n";
         return false;
     }
@@ -149,7 +149,7 @@ void PathNetwork::assimilateNetwork(const PathNetwork &otherNetwork, sf::Vector2
 
 
 bool PathNetwork::connectNodes(unsigned int Id1, unsigned int Id2){
-    if(Id1 > (allNodes.size() - 1)   ||  Id2 > (allNodes.size() - 1)){
+    if(!isIDValid(Id1)   ||  !isIDValid(Id2)){
         return false;
     }
     
@@ -164,7 +164,7 @@ void PathNetwork::mergeNodes(unsigned int Id1, unsigned int Id2){
     if(Id1 == Id2)
         return;
         
-    if((Id1 > (allNodes.size() - 1)   ||  Id2 > (allNodes.size() - 1)))
+    if((!isIDValid(Id1)   ||  !isIDValid(Id2)))
         std::cout<<"error in PathNetwork::mergeNodes: node ID is invalid \n";
     
     //Ensure that Id2 is after Id1

@@ -36,7 +36,7 @@ private:
     
     void setNetID(unsigned int newNetID);
 
-    std::vector<int> connectedNodeNetIDs;
+    std::vector<unsigned int> connectedNodeNetIDs;
 };
 
 #endif /* defined(__AntificialAntelligence__PathNode__) */

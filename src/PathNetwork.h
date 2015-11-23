@@ -53,6 +53,10 @@ public:
 private:
     std::vector<PathNode> allNodes;
     
+    bool isIDValid(unsigned int netID){
+        return (netID < allNodes.size());
+    }
+    
     //returns false if either ID is invalid
     bool connectNodes(unsigned int node1ID, unsigned int node2ID);
     

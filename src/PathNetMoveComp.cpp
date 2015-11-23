@@ -45,7 +45,7 @@ void PathNetMoveComp::joinNetwork(PathNetwork * newNetwork, int nodeID){
 
 
 void PathNetMoveComp::moveToTargetNode(float deltaTime){
-    if(targetNode  &&  (targetNode->getPosition() != currentNode->getPosition())){
+    if(targetNode && currentNode &&  (targetNode->getPosition() != currentNode->getPosition())){
         
         
         const sf::Vector2f offsetToTarget = targetNode->getPosition() - position;
