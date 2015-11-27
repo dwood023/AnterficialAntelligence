@@ -18,6 +18,8 @@
 //Keeps a pointer to it's owner's position, which it edits directly when moving about the network
 class PathNetMoveComp{
 public:
+    PathNetMoveComp();
+    
     void getAccessibleNodes(std::vector<PathNode*> &  nodesOut);
     
     bool isOnNode();

@@ -11,6 +11,13 @@
 #include <iostream>
 
 
+PathNetMoveComp::PathNetMoveComp(){
+    currentNetwork = nullptr;
+    currentNode = nullptr;
+    targetNode = nullptr;
+    isOnCurrentNode = false;
+}
+
 void PathNetMoveComp::getAccessibleNodes(std::vector<PathNode*> & nodesOut){
     if(isOnCurrentNode && currentNode){
         currentNetwork->getConnectedNodes(currentNode->getNetID(), nodesOut);
