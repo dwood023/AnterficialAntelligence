@@ -1,5 +1,3 @@
-//
-//  PathNetMoveComp.cpp
 //  AntificialAntelligence
 //
 //  Created by Jonathan Wood on 18/11/2015.
@@ -74,6 +72,9 @@ PathNode const * const PathNetMoveComp::getTargetNode() const{
     return targetNode;
 }
 
+PathNode const * const PathNetMoveComp::getCurrentNode() const{
+    return currentNode;
+}
 
 void PathNetMoveComp::setPosition(float x, float y){
     position = sf::Vector2f(x, y);
@@ -117,3 +118,10 @@ void PathNetMoveComp::move(sf::Vector2f offset){
     }
 }
 
+int PathNetMoveComp::calcRotation() {
+
+	float adj = targetNode->getPosition().x - currentNode->getPosition().x;
+	float opp = targetNode->getPosition().y - currentNode->getPosition().y;
+
+	return MathLib::radsToDegrees(std::atan2(opp,adj));	 
+}

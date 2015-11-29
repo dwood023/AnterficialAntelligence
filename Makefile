@@ -8,10 +8,10 @@ all: bin/$(EXECUTABLE)
 
 bin/$(EXECUTABLE): $(OBJFILES)
 	@echo "** Build Happening **"
-	$(COMPILER) $(LIBS) -o $@ $^ 
+	$(COMPILER) $(LIBS) -g -o $@ $^ 
 
 obj/%.o: src/%.cpp
-	$(COMPILER) -c -o $@ $<
+	$(COMPILER) -g -c -o $@ $<
 
 clean: 
 	@echo "** Removing executable and objects **"

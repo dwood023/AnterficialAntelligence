@@ -1,0 +1,97 @@
+#include <SFML/Graphics.hpp>
+#include "Ant.h"
+#include "AssetLoader.h"
+#include "MathLib.h"
+#include <iostream>
+
+Ant::Ant(sf::Vector2f newPosition)
+	:idleAnimation(AssetLoader::getAntIdleAnimation())
+{
+    sprite = AssetLoader::getSpriteAnt();
+    setPosition(newPosition);
+    pathNetMoveComp.setPosition(getPosition());
+}
+
+void Ant::update(float deltaTime){
+    brain.think(deltaTime, *this);
+    setPosition(pathNetMoveComp.getPosition());
+	idleAnimation.update(sprite, deltaTime);
+
+	if (!pathNetMoveComp.isAtTarget()) {
+
+		sf::Vector2f currentPosition = pathNetMoveComp.getCurrentNode()->getPosition();
+		sf::Vector2f targetPosition = pathNetMoveComp.getTargetNode()->getPosition();
+
+		float adj = targetPosition.x - currentPosition.x;
+		float opp = targetPosition.y - currentPosition.y; 
+		
+		/*
+	if (currentPosition.x > targetPosition.x) 
+			adj = currentPosition.x - targetPosition.x;
+		else 
+			adj = targetPosition.x - currentPosition.x;
+
+		if (currentPosition.y > targetPosition.y) 
+			opp = currentPosition.y - targetPosition.y;
+		else 
+			opp = targetPosition.y - currentPosition.y;
+
+		float xScale = sprite.getScale().x;
+		*/
+		float yScale = sprite.getScale().y;
+
+		//if ((adj < 0 && xScale > 0) || (adj > 0 && xScale < 0))  
+		//	sprite.setScale(-xScale, sprite.getScale().y);
+
+		int angle = MathLib::radsToDegrees(atan(opp/adj));
+
+		if (adj < 0 && opp <= 0) 
+			angle = 180 - angle;
+		else if (adj < 0 && opp >= 0) 
+			angle += 90 - angle;
+		else if (adj > 0 && opp >= 0)
+			angle = abs(angle); 
+		else if (adj > 0 && opp < 0)
+			angle = 360 + angle;
+
+		//if (angle < 0)
+		//	angle = 180 - angle;
+		if (angle > 180 && yScale < 0)
+
+
+		// if (angle > 10) {
+		// 	change to climbing animation
+		// }
+
+		std::cout << angle << std::endl;
+		sprite.setRotation(angle);
+
+	}
+}
+
+
+void Ant::draw(sf::RenderWindow &window) {
+     
+    window.draw(sprite);
+
+}
+
+void Ant::setPosition(sf::Vector2f newPosition) {
+    sprite.setPosition(newPosition);
+}
+
+
+void Ant::move(sf::Vector2f offset){
+    setPosition(getPosition() + offset);
+}
+
+
+sf::Vector2f Ant::getPosition() {
+     return sprite.getPosition();
+}
+
+
+void Ant::joinPathNetwork(PathNetwork * newNetwork, int nodeID){
+    pathNetMoveComp.joinNetwork(newNetwork, nodeID);
+}
+

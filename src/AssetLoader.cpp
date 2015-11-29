@@ -172,7 +172,7 @@ namespace AssetLoader {
         sprite.setTexture(earthTextureSheet);
         sprite.setTextureRect({640, 128, 128, 128});
         TileData bendLT(sprite);
-        bendLT.localPathNetwork.createNewNodeString({rightPoint, topPoint});
+        bendLT.localPathNetwork.createNewNodeString({leftPoint, topPoint});
         
         return bendLT;
     }

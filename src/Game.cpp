@@ -33,20 +33,18 @@ int main() {
 	tileMap.setMapPosition(0,0);
     tileMap.setTileData(AssetLoader::getTileDataArray());
     
-    tileMap.setTiles({1, 1}, {3, 1}, AssetLoader::HORI);
-    
-  //  tileMap.setTiles(sf::Vector2u(6, 2), sf::Vector2u(7, 2), AssetLoader::HORI);
-    
-//    tileMap.setTile(sf::Vector2u(8, 2), AssetLoader::BRANCH_LEFT_BOTTOM_RIGHT);
-//    tileMap.setTiles( {8, 3}, {8, 6}, AssetLoader::VERT);
-//    tileMap.setTiles( {9, 2}, {10, 2}, AssetLoader::HORI);
+    tileMap.setTile({1, 1}, AssetLoader::BEND_RIGHT_BOTTOM);
+    tileMap.setTile({2, 1}, AssetLoader::HORI);
+    tileMap.setTile({2, 2}, AssetLoader::HORI);
+	tileMap.setTile({3, 1}, AssetLoader::BEND_LEFT_BOTTOM);
+	tileMap.setTile({3, 2}, AssetLoader::BRANCH_BEND_TOP_LEFT);
+	tileMap.setTile({1, 2}, AssetLoader::BEND_TOP_RIGHT);
     
     tileMap.constructPathNetworkInArea(sf::Vector2u(0, 0), sf::Vector2u(20, 20));
     
 	Ant ant = Ant(sf::Vector2f(100, 100));
     
     ant.joinPathNetwork(&tileMap.getWorldPathNetwork(), 0);
-
     
 	while (gameWindow.isOpen()) {
 		 

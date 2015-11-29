@@ -16,7 +16,7 @@
 
 bool PathNetwork::getConnectedNodes(unsigned int nodeID ,std::vector<PathNode*> & connectedNodesOut){
     if(!isIDValid(nodeID)){
-        std::cout<<"invalid node ID in PathNetwork::getConnectedNodes\n";
+        std::cout<<"invalid node ID in PathNetwork::getConnectedNode:"<<nodeID<<std::endl;
         return false;
     }
     

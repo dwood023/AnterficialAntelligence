@@ -2,6 +2,7 @@
 #include "Ant.h"
 #include "AssetLoader.h"
 #include "MathLib.h"
+#include <iostream>
 
 Ant::Ant(sf::Vector2f newPosition)
 	:idleAnimation(AssetLoader::getAntIdleAnimation())
@@ -15,6 +16,20 @@ void Ant::update(float deltaTime){
     brain.think(deltaTime, *this);
     setPosition(pathNetMoveComp.getPosition());
 	idleAnimation.update(sprite, deltaTime);
+
+	// If moving 
+	if (!pathNetMoveComp.isAtTarget()) {
+
+		int angle = pathNetMoveComp.calcRotation();
+		int yScale = sprite.getScale().y;
+
+		// If the ant is upside down and isn't already flipped, flip it on Y
+		if ((abs(angle) > 90 && yScale > 0) || (abs(angle) < 90 && yScale < 0)) 
+			sprite.setScale(sprite.getScale().x, -yScale);
+
+		sprite.setRotation(angle);
+
+	}
 }
 
 

@@ -33,6 +33,7 @@ public:
     void moveToTargetNode(float deltaTime);
     
     PathNode const * const getTargetNode() const;
+    PathNode const * const getCurrentNode() const;
     
     //Will set this as the current network, and teleport to the specified node
     void joinNetwork(PathNetwork * newNetwork, int nodeID);
@@ -40,6 +41,8 @@ public:
     void setPosition(float x, float y);
     void setPosition(sf::Vector2f pos);
     sf::Vector2f getPosition() const;
+
+	int calcRotation();
 private:
     //Teleport to and arrive at the specified node
     void snapToNode(PathNode * node);
@@ -54,7 +57,7 @@ private:
     sf::Vector2f position;
     
     //The max speed that the entity can move when navigating the network
-    float maxSpeed = 200.0f;
+    float maxSpeed = 100.0f;
     
     PathNetwork * currentNetwork;
     
