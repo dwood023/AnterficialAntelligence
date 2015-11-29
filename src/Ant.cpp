@@ -4,6 +4,15 @@
 #include "MathLib.h"
 #include <iostream>
 
+Ant::Ant()
+: sprite{}
+, idleAnimation{}
+, walkAnimation{}
+, pathNetMoveComp{}
+, brain{}
+{
+}
+
 Ant::Ant(sf::Vector2f newPosition)
 	:idleAnimation(AssetLoader::getAntIdleAnimation())
 	,walkAnimation(AssetLoader::getAntWalkAnimation())

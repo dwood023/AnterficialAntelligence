@@ -14,6 +14,7 @@ class Ant {
     friend class AntBrain;
 
 	public:
+        Ant();
 
 		Ant(sf::Vector2f newPosition);
 		

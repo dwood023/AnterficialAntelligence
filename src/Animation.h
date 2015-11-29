@@ -7,7 +7,8 @@
 class Animation {
 	 
 	public:
-
+        Animation();
+    
 		Animation(std::vector<sf::IntRect> newFrames, float newFrameRate);
 
 		void update(sf::Sprite& spriteToAnimate, float deltaTime);

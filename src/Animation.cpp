@@ -3,6 +3,16 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+
+Animation::Animation()
+: frames{}
+, frameRate{1}
+, frameCounter{0}
+, timeSinceLastAnimFrame{0}
+{
+}
+
+
 Animation::Animation(std::vector<sf::IntRect> newFrames, float newFrameRate) {
 
 	frames = newFrames;
