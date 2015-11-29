@@ -29,11 +29,15 @@ class Ant {
 		
 		void joinPathNetwork(PathNetwork * newNetwork, int nodeID);
 
+		bool isMoving();
+
 	private:
 
 		sf::Sprite sprite;
 
 		Animation idleAnimation;
+
+		Animation walkAnimation;
 		
 		PathNetMoveComp pathNetMoveComp;
 		

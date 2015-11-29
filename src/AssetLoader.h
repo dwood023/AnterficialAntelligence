@@ -16,6 +16,7 @@ namespace AssetLoader {
     sf::Sprite getSpriteAnt();
 
 	Animation getAntIdleAnimation();
+	Animation getAntWalkAnimation();
     
     //Tile Data
     //Should be update to match the indexes of getTileDataArray()
@@ -60,6 +61,8 @@ namespace AssetLoader {
 		sf::Texture earthTextureSheet;
         
 		sf::Texture antIdleTexture;
+		sf::Texture antWalkTexture;
+		sf::Texture antSheet;
 	}
 };
 

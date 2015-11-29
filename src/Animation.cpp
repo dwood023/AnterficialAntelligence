@@ -17,9 +17,8 @@ void Animation::update(sf::Sprite& spriteToAnimate, float deltaTime) {
 
 	if (timeSinceLastAnimFrame >= 1.0f / frameRate) {
 
-		if (frameCounter >= frames.size()) {
+		if (frameCounter >= frames.size()) 
 			 frameCounter = 0;
-		}
 
 		spriteToAnimate.setTextureRect(frames[frameCounter++]);	 
 

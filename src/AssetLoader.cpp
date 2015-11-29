@@ -14,6 +14,10 @@ namespace AssetLoader {
 		earthTextureSheet.loadFromFile("./data/EarthSheet.png");
 
 		antIdleTexture.loadFromFile("./data/AntIdle.png");
+
+		antWalkTexture.loadFromFile("./data/AntWalk.png");
+
+		antSheet.loadFromFile("./data/AntSheet.png");
 	}
 
 
@@ -22,7 +26,22 @@ namespace AssetLoader {
 		std::vector<sf::IntRect> frames = {
 			 {0,0,128,128},
 			 {128,0,128,128},
-			 {0,128,128,128}
+			 {256,0,128,128}
+		};
+
+		return Animation(frames, 10);
+
+	}
+
+	Animation getAntWalkAnimation() {
+
+		std::vector<sf::IntRect> frames = {
+			 {0,128,128,128},
+			 {128,128,128,128},
+			 {256,128,128,128},
+			 {384,128,128,128},
+			 {0,256,128,128},
+			 {128,256,128,128}
 		};
 
 		return Animation(frames, 10);
@@ -32,7 +51,7 @@ namespace AssetLoader {
 	sf::Sprite getSpriteAnt() {
         sf::Sprite antSprite;
 
-		antSprite.setTexture(antIdleTexture);
+		antSprite.setTexture(antSheet);
         antSprite.setOrigin(64,  106);
         
 		return antSprite;

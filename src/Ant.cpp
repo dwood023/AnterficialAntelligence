@@ -5,7 +5,8 @@
 #include <iostream>
 
 Ant::Ant(sf::Vector2f newPosition)
-	:idleAnimation(AssetLoader::getAntIdleAnimation())
+	:idleAnimation(AssetLoader::getAntIdleAnimation(), 60)
+	,walkAnimation(AssetLoader::getAntWalkAnimation(), 60)
 {
     sprite = AssetLoader::getSpriteAnt();
     setPosition(newPosition);
@@ -15,10 +16,10 @@ Ant::Ant(sf::Vector2f newPosition)
 void Ant::update(float deltaTime){
     brain.think(deltaTime, *this);
     setPosition(pathNetMoveComp.getPosition());
-	idleAnimation.update(sprite, deltaTime);
 
-	// If moving 
-	if (!pathNetMoveComp.isAtTarget()) {
+	if (isMoving()) {
+
+		walkAnimation.update(sprite, deltaTime);
 
 		int angle = pathNetMoveComp.calcRotation();
 		int yScale = sprite.getScale().y;
@@ -29,6 +30,10 @@ void Ant::update(float deltaTime){
 
 		sprite.setRotation(angle);
 
+
+	}
+	else {
+		idleAnimation.update(sprite, deltaTime);
 	}
 }
 
@@ -58,3 +63,6 @@ void Ant::joinPathNetwork(PathNetwork * newNetwork, int nodeID){
     pathNetMoveComp.joinNetwork(newNetwork, nodeID);
 }
 
+bool Ant::isMoving() {
+	 return !pathNetMoveComp.isAtTarget();
+}
