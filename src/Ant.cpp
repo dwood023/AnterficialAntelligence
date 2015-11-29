@@ -5,8 +5,8 @@
 #include <iostream>
 
 Ant::Ant(sf::Vector2f newPosition)
-	:idleAnimation(AssetLoader::getAntIdleAnimation(), 60)
-	,walkAnimation(AssetLoader::getAntWalkAnimation(), 60)
+	:idleAnimation(AssetLoader::getAntIdleAnimation())
+	,walkAnimation(AssetLoader::getAntWalkAnimation())
 {
     sprite = AssetLoader::getSpriteAnt();
     setPosition(newPosition);
