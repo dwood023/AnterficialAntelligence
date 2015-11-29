@@ -58,7 +58,7 @@ private:
     }
     
     //returns false if either ID is invalid
-    bool connectNodes(unsigned int node1ID, unsigned int node2ID);
+    bool connectNodes(unsigned int node1ID, unsigned int node2ID, PathType pathType);
     
     //PERFORMANCE WARING: pretty hefty
     void mergeNodes(unsigned int node1ID, unsigned int node2ID);

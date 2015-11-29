@@ -22,8 +22,8 @@ bool PathNetwork::getConnectedNodes(unsigned int nodeID ,std::vector<PathNode*> 
     
     const PathNode & node = allNodes[nodeID];
     
-    for(int i = 0; i < node.connectedNodeNetIDs.size(); ++i){
-        connectedNodesOut.push_back(&allNodes[node.connectedNodeNetIDs[i]]);
+    for(int i = 0; i < node.adjacentPaths.size(); ++i){
+        connectedNodesOut.push_back(&allNodes[node.adjacentPaths[i].getConnectedNodeNetID()]);
     }
     
     return true;
@@ -46,7 +46,7 @@ bool PathNetwork::createNewNodeConnectedTo(sf::Vector2f newNodePos,  unsigned in
     allNodes.push_back(PathNode(newNodePos));
     allNodes[allNodes.size() - 1].setNetID(int(allNodes.size() -1));
     
-    connectNodes(nodeIDToConnectTo, allNodes[allNodes.size() - 1].getNetID());
+    connectNodes(nodeIDToConnectTo, allNodes[allNodes.size() - 1].getNetID(), PathType::FLOOR);
 
     return true;
 }
@@ -63,7 +63,7 @@ bool PathNetwork::createNewNodeConnectedTo(sf::Vector2f newNodePos, std::initial
     allNodes[allNodes.size() - 1].setNetID(int(allNodes.size() -1));
 
     for(auto itr = nodeIDsToConnectTo.begin(); itr < nodeIDsToConnectTo.end(); ++itr){
-        connectNodes(*itr, allNodes[allNodes.size() - 1].getNetID());
+        connectNodes(*itr, allNodes[allNodes.size() - 1].getNetID(), PathType::FLOOR);
     }
     
     return true;
@@ -84,7 +84,7 @@ bool PathNetwork::createNewNodeStringConnectedTo(std::initializer_list<sf::Vecto
     int firstNodeID= static_cast<int>(allNodes.size());
     createNewNodeString(newNodes);
     
-    connectNodes(firstNodeID, nodeIDToConnectTo);
+    connectNodes(firstNodeID, nodeIDToConnectTo, PathType::FLOOR);
     return true;
 }
 
@@ -132,8 +132,8 @@ void PathNetwork::assimilateNetwork(const PathNetwork &otherNetwork, sf::Vector2
         node.netID += IDoffset;
         
         //Update the ID of each connected node ID for node
-        for(int j = 0; j < node.connectedNodeNetIDs.size(); ++j){
-            node.connectedNodeNetIDs[j] += IDoffset;
+        for(int j = 0; j < node.adjacentPaths.size(); ++j){
+            node.adjacentPaths[j].connectedNodeNetID += IDoffset;
         }
     }
     
@@ -148,13 +148,13 @@ void PathNetwork::assimilateNetwork(const PathNetwork &otherNetwork, sf::Vector2
 }
 
 
-bool PathNetwork::connectNodes(unsigned int Id1, unsigned int Id2){
+bool PathNetwork::connectNodes(unsigned int Id1, unsigned int Id2, PathType pathType){
     if(!isIDValid(Id1)   ||  !isIDValid(Id2)){
         return false;
     }
     
-    allNodes[Id1].connectedNodeNetIDs.push_back(Id2);
-    allNodes[Id2].connectedNodeNetIDs.push_back(Id1);
+    allNodes[Id1].adjacentPaths.push_back(Path(Id2, pathType));
+    allNodes[Id2].adjacentPaths.push_back(Path(Id1, pathType));
     
     return true;
 }
@@ -173,18 +173,18 @@ void PathNetwork::mergeNodes(unsigned int Id1, unsigned int Id2){
     }
     
     //add node2's connected nodes to node 1
-    for(int i = 0; i < allNodes[Id2].connectedNodeNetIDs.size(); ++i){
+    for(int i = 0; i < allNodes[Id2].adjacentPaths.size(); ++i){
         //Don't connect node1 to itself, and don't connect node1 to node2 (as node 2 is about to be deleted)
-        if(allNodes[Id2].connectedNodeNetIDs[i] != Id1  &&  allNodes[Id2].connectedNodeNetIDs[i] != Id2){
+        if(allNodes[Id2].adjacentPaths[i].connectedNodeNetID != Id1  &&  allNodes[Id2].adjacentPaths[i].connectedNodeNetID != Id2){
             bool alreadyConnected = false;
             //check if this node 1 is already connected to this node
-            for(int j = 0; j < allNodes[Id1].connectedNodeNetIDs.size(); ++j){
-                if(allNodes[Id1].connectedNodeNetIDs[j] == allNodes[Id2].connectedNodeNetIDs[i])
+            for(int j = 0; j < allNodes[Id1].adjacentPaths.size(); ++j){
+                if(allNodes[Id1].adjacentPaths[j].connectedNodeNetID == allNodes[Id2].adjacentPaths[i].connectedNodeNetID)
                     alreadyConnected = true;
             }
             
             if(!alreadyConnected)
-                allNodes[Id1].connectedNodeNetIDs.push_back(allNodes[Id2].connectedNodeNetIDs[i]);
+                allNodes[Id1].adjacentPaths.push_back(allNodes[Id2].adjacentPaths[i]);
         }
     }
     
@@ -199,12 +199,12 @@ void PathNetwork::mergeNodes(unsigned int Id1, unsigned int Id2){
     //Decrement any connectedNodeIDs that refer to anything from (Id2 + 1) or over
     //Set any nodes that refer to Id2 to refer to Id2 instead, as this has replaced it
     for(int i = 0; i < allNodes.size(); ++i){
-        for(int n = 0; n < allNodes[i].connectedNodeNetIDs.size(); ++n){
-            if(allNodes[i].connectedNodeNetIDs[n] > Id2){
-                --allNodes[i].connectedNodeNetIDs[n];
+        for(int n = 0; n < allNodes[i].adjacentPaths.size(); ++n){
+            if(allNodes[i].adjacentPaths[n].connectedNodeNetID > Id2){
+                --allNodes[i].adjacentPaths[n].connectedNodeNetID;
             }
-            else if(allNodes[i].connectedNodeNetIDs[n] == Id2){
-                allNodes[i].connectedNodeNetIDs[n] = Id1;
+            else if(allNodes[i].adjacentPaths[n].connectedNodeNetID == Id2){
+                allNodes[i].adjacentPaths[n].connectedNodeNetID = Id1;
             }
         }
     }

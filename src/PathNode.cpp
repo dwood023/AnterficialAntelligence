@@ -12,6 +12,9 @@
 
 //Network ID method
 
+
+
+
 unsigned int PathNode::getNetID(){
     return netID;
 }
@@ -38,3 +41,19 @@ void PathNode::move(float x, float y){
     position.x += x;
     position.y += y;
 }
+
+
+
+//_________________Path__________________
+
+Path::Path(){
+    pathType = PathType::FLOOR;
+    connectedNodeNetID = 0;
+}
+
+
+Path::Path(unsigned int newConnectedNodeNetID, PathType newPathType){
+    connectedNodeNetID = newConnectedNodeNetID;
+    pathType = newPathType;
+}
+
