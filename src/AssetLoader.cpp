@@ -83,7 +83,7 @@ namespace AssetLoader {
         horiSprite.setTextureRect( {256, 0, 128, 128} );
         TileData horiTunnel(horiSprite);
         horiTunnel.localPathNetwork.createNewNode(leftPoint);
-        horiTunnel.localPathNetwork.createNewNodeConnectedTo(rightPoint, 0);
+        horiTunnel.localPathNetwork.createNewNodeConnectedTo(rightPoint, 0, PathType::FLOOR);
         return horiTunnel;
     }
     
@@ -92,7 +92,7 @@ namespace AssetLoader {
         vertSprite.setTexture(earthTextureSheet);
         vertSprite.setTextureRect({128, 0, 128, 128});
         TileData vertTunnel(vertSprite);
-        vertTunnel.localPathNetwork.createNewNodeString( { topPoint, bottomPoint });
+        vertTunnel.localPathNetwork.createNewNodeString( { topPoint, bottomPoint }, PathType::FLOOR);
         
         return vertTunnel;
     }
@@ -102,7 +102,7 @@ namespace AssetLoader {
         sprite.setTexture(earthTextureSheet);
         sprite.setTextureRect( {384, 0, 128, 128});
         TileData bendBotRight(sprite);
-        bendBotRight.localPathNetwork.createNewNodeString({ rightPoint, bottomPoint });
+        bendBotRight.localPathNetwork.createNewNodeString({ rightPoint, bottomPoint }, PathType::FLOOR);
         
         return bendBotRight;
     }
@@ -113,8 +113,8 @@ namespace AssetLoader {
         sprite.setTextureRect({512, 0, 128, 128});
         TileData branchRLD(sprite);
         
-        branchRLD.localPathNetwork.createNewNodeString( { leftPoint, bottomPoint} );
-        branchRLD.localPathNetwork.createNewNodeConnectedTo( rightPoint, 0);
+        branchRLD.localPathNetwork.createNewNodeString( { leftPoint, bottomPoint}, PathType::FLOOR );
+        branchRLD.localPathNetwork.createNewNodeConnectedTo( rightPoint, 0, PathType::FLOOR);
         return branchRLD;
     }
     
@@ -125,7 +125,7 @@ namespace AssetLoader {
         rToBSprite.setTexture(earthTextureSheet);
         rToBSprite.setTextureRect({640, 0, 128, 128});
         TileData rToB(rToBSprite);
-        rToB.localPathNetwork.createNewNodeString( { leftPoint , bottomPoint} );
+        rToB.localPathNetwork.createNewNodeString( { leftPoint , bottomPoint}, PathType::FLOOR );
         
         return rToB;
     }
@@ -135,8 +135,8 @@ namespace AssetLoader {
         sprite.setTexture(earthTextureSheet);
         sprite.setTextureRect( {0, 128, 128, 128});
         TileData branchTRB(sprite);
-        branchTRB.localPathNetwork.createNewNodeString( { topPoint, bottomPoint } );
-        branchTRB.localPathNetwork.createNewNodeConnectedTo( rightPoint, 1);
+        branchTRB.localPathNetwork.createNewNodeString( { topPoint, bottomPoint }, PathType::FLOOR );
+        branchTRB.localPathNetwork.createNewNodeConnectedTo( rightPoint, 1, PathType::FLOOR);
         
         return branchTRB;
     }
@@ -147,9 +147,9 @@ namespace AssetLoader {
         sprite.setTextureRect( {128, 128, 128, 128} );
         TileData branchLTRB(sprite);
         branchLTRB.localPathNetwork.createNewNode(leftPoint);
-        branchLTRB.localPathNetwork.createNewNodeConnectedTo( topPoint, 0);
-        branchLTRB.localPathNetwork.createNewNodeConnectedTo( rightPoint, {0, 1});
-        branchLTRB.localPathNetwork.createNewNodeConnectedTo( bottomPoint, {0, 1, 2});
+        branchLTRB.localPathNetwork.createNewNodeConnectedTo( topPoint, 0, PathType::FLOOR);
+        branchLTRB.localPathNetwork.createNewNodeConnectedTo( rightPoint, {0, 1}, PathType::FLOOR);
+        branchLTRB.localPathNetwork.createNewNodeConnectedTo( bottomPoint, {0, 1, 2}, PathType::FLOOR);
         
         return branchLTRB;
     }
@@ -159,8 +159,8 @@ namespace AssetLoader {
         sprite.setTexture(earthTextureSheet);
         sprite.setTextureRect({256, 128, 128, 128});
         TileData branchLTB(sprite);
-        branchLTB.localPathNetwork.createNewNodeString({ leftPoint, topPoint});
-        branchLTB.localPathNetwork.createNewNodeConnectedTo(bottomPoint, 0);
+        branchLTB.localPathNetwork.createNewNodeString({ leftPoint, topPoint}, PathType::FLOOR);
+        branchLTB.localPathNetwork.createNewNodeConnectedTo(bottomPoint, 0, PathType::FLOOR);
         
         return branchLTB;
     }
@@ -170,7 +170,7 @@ namespace AssetLoader {
         sprite.setTexture(earthTextureSheet);
         sprite.setTextureRect( {384, 128, 128, 128});
         TileData bendTR(sprite);
-        bendTR.localPathNetwork.createNewNodeString({topPoint, { 47, 69}, rightPoint});
+        bendTR.localPathNetwork.createNewNodeString({topPoint, { 47, 69}, rightPoint}, PathType::FLOOR);
         
         return bendTR;
     }
@@ -180,8 +180,8 @@ namespace AssetLoader {
         sprite.setTexture(earthTextureSheet);
         sprite.setTextureRect({512, 128, 128, 128});
         TileData branchLTR(sprite);
-        branchLTR.localPathNetwork.createNewNodeString({rightPoint, leftPoint});
-        branchLTR.localPathNetwork.createNewNodeConnectedTo(topPoint, 0);
+        branchLTR.localPathNetwork.createNewNodeString({rightPoint, leftPoint}, PathType::FLOOR);
+        branchLTR.localPathNetwork.createNewNodeConnectedTo(topPoint, 0, PathType::FLOOR);
         
         return branchLTR;
     }
@@ -191,7 +191,7 @@ namespace AssetLoader {
         sprite.setTexture(earthTextureSheet);
         sprite.setTextureRect({640, 128, 128, 128});
         TileData bendLT(sprite);
-        bendLT.localPathNetwork.createNewNodeString({leftPoint, topPoint});
+        bendLT.localPathNetwork.createNewNodeString({leftPoint, topPoint}, PathType::FLOOR);
         
         return bendLT;
     }
