@@ -20,6 +20,8 @@ class PathNetMoveComp{
 public:
     PathNetMoveComp();
     
+    ~PathNetMoveComp();
+    
     void getAccessibleNodes(std::vector<PathNode*> &  nodesOut);
     
     bool isOnNode();
@@ -53,6 +55,9 @@ private:
     
     //function for standard movement through network
     void move(sf::Vector2f offset);
+    
+    void setTargetNode_Internal(PathNode * node);
+    void setCurrentNode_Internal(PathNode * node);
     
     sf::Vector2f position;
     

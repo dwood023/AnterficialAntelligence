@@ -33,12 +33,12 @@ int main() {
 	tileMap.setMapPosition(0,0);
     tileMap.setTileData(AssetLoader::getTileDataArray());
     
-    tileMap.setTile({1, 1}, AssetLoader::BEND_RIGHT_BOTTOM);
-    tileMap.setTile({2, 1}, AssetLoader::HORI);
-    tileMap.setTile({2, 2}, AssetLoader::HORI);
-	tileMap.setTile({3, 1}, AssetLoader::BEND_LEFT_BOTTOM);
-	tileMap.setTile({3, 2}, AssetLoader::BRANCH_BEND_TOP_LEFT);
-	tileMap.setTile({1, 2}, AssetLoader::BEND_TOP_RIGHT);
+    tileMap.setTilePreLoop({1, 1}, AssetLoader::BEND_RIGHT_BOTTOM);
+    tileMap.setTilePreLoop({2, 1}, AssetLoader::HORI);
+    tileMap.setTilePreLoop({2, 2}, AssetLoader::HORI);
+	tileMap.setTilePreLoop({3, 1}, AssetLoader::BEND_LEFT_BOTTOM);
+	tileMap.setTilePreLoop({3, 2}, AssetLoader::BRANCH_BEND_TOP_LEFT);
+	tileMap.setTilePreLoop({1, 2}, AssetLoader::BEND_TOP_RIGHT);
     
     tileMap.constructPathNetworkInArea(sf::Vector2u(0, 0), sf::Vector2u(20, 20));
     

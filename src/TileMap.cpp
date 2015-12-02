@@ -90,11 +90,11 @@ void TileMap::setMapPosition(float x, float y){
 }
 
 
-void TileMap::setTile(sf::Vector2u gridPos, uint8_t newValue){
+void TileMap::setTilePreLoop(sf::Vector2u gridPos, uint8_t newValue){
     map[gridPos.y][gridPos.x] = newValue;
 }
 
-void TileMap::setTiles(sf::Vector2u gridStart, sf::Vector2u gridEnd, uint8_t newValue){
+void TileMap::setTilesPreLoop(sf::Vector2u gridStart, sf::Vector2u gridEnd, uint8_t newValue){
     if(gridStart.x > gridEnd.x  ||  gridStart.y > gridEnd.y){
         return;
     }
@@ -104,7 +104,7 @@ void TileMap::setTiles(sf::Vector2u gridStart, sf::Vector2u gridEnd, uint8_t new
     
     for(int x = gridStart.x; x <= gridEnd.x; ++x){
         for(int y = gridStart.y; y <= gridEnd.y; ++y){
-            setTile(sf::Vector2u(x, y), newValue);
+            setTilePreLoop(sf::Vector2u(x, y), newValue);
         }
     }
 }
@@ -156,6 +156,13 @@ const TileData & TileMap::getTileData(sf::Vector2u gridPosition) const{
 void TileMap::transformTile(sf::Vector2u tile, const TileTransformation & transformation){
     //WORK IN PROGRESS
 }
+
+
+void TileMap::setTileMidLoop(sf::Vector2u tileGridPosition, uint8_t newValue){
+    
+}
+
+
 
 sf::Vector2u TileMap::getMapIndexAtPosition(float x, float y){
     //Set x and y to map local space

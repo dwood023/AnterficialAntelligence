@@ -50,6 +50,8 @@ public:
     
     //Will return nullptr if nodeNetID is invalid
     PathNode * getNode(unsigned int nodeNetID);
+    
+    
 private:
     std::vector<PathNode> allNodes;
     

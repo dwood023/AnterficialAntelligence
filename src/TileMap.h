@@ -52,16 +52,18 @@ public:
     //gets the world-space position (coordinates) of the tile at the grid position x, y
     inline sf::Vector2f getPositionOfTile(unsigned int x, unsigned int y);
 
-    //sets the tile at tileGridPosition to the value newValue
-    void setTile(sf::Vector2u tileGridPosition, uint8_t newValue);
+    //sets the tile at tileGridPosition to the value newValue. Must not be called on a tile that has allready been asimilated with the worldPathNetwork
+    //Will not automatically edit the path-network, so should only be called before the game loop, and before constructPathNetworkInArea
+    void setTilePreLoop(sf::Vector2u tileGridPosition, uint8_t newValue);
     
     //sets all tiles in the given rectangle in grid space to the given value
-    void setTiles(sf::Vector2u gridStart, sf::Vector2u gridEnd, uint8_t newValue);
+    void setTilesPreLoop(sf::Vector2u gridStart, sf::Vector2u gridEnd, uint8_t newValue);
+    
     
     //Sets each tile to a random value. Just for testing (it's not even random anymore)
     void randomizeMap();
     
-    //Constructs the world-space
+    //Constructs the world-space worldPathNetwork, from the tile data for the indicated tiles
     void constructPathNetworkInArea(sf::Vector2u start, sf::Vector2u end);
     
     PathNetwork & getWorldPathNetwork();
@@ -69,8 +71,12 @@ public:
     //get the generic data for the tile at gridPosition
     const TileData & getTileData(sf::Vector2u gridPosition) const;
     
-    void transformTile(sf::Vector2u tile, const TileTransformation & transformation);
 private:
+    void transformTile(sf::Vector2u tile, const TileTransformation & transformation);
+    
+    //Will update the worldPathNetwork accordingly
+    void setTileMidLoop(sf::Vector2u tileGridPosition, uint8_t newValue);
+    
     //Will return the map tile that the point is within
     sf::Vector2u getMapIndexAtPosition(float x, float y);
     

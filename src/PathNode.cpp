@@ -24,6 +24,25 @@ sf::Vector2f PathNode::getPosition() const{
 }
 
 
+void PathNode::notifyUsing(const PathNetMoveComp & user){
+    thingsUsingThis.push_front(&user);
+    int counter = 0;
+    for(auto itr = thingsUsingThis.begin(); itr != thingsUsingThis.end(); ++itr){
+        ++counter;
+    }
+    std::cout<<netID<<" using. thingsUsing: "<<counter<<std::endl;
+}
+
+void PathNode::notifyNotUsing(const PathNetMoveComp & user){
+    thingsUsingThis.remove(&user);
+    int counter = 0;
+    for(auto itr = thingsUsingThis.begin(); itr != thingsUsingThis.end(); ++itr){
+        ++counter;
+    }
+    std::cout<<netID<<" not using. thingsUsing: "<<counter<<std::endl;
+}
+
+
 PathNode::PathNode(float posX, float posY){
     position.x = posX;
     position.y = posY;

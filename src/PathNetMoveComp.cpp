@@ -16,6 +16,16 @@ PathNetMoveComp::PathNetMoveComp(){
     isOnCurrentNode = false;
 }
 
+
+PathNetMoveComp::~PathNetMoveComp(){
+    if(currentNode)
+        currentNode->notifyNotUsing(*this);
+    
+    if(targetNode)
+        targetNode->notifyNotUsing(*this);
+}
+
+
 void PathNetMoveComp::getAccessibleNodes(std::vector<PathNode*> & nodesOut){
     if(isOnCurrentNode && currentNode){
         currentNetwork->getConnectedNodes(currentNode->getNetID(), nodesOut);
@@ -89,7 +99,7 @@ sf::Vector2f PathNetMoveComp::getPosition() const{
 }
 
 void PathNetMoveComp::setTargetNode(PathNode *node){
-    targetNode = node;
+    setTargetNode_Internal(node);
 }
 
 void PathNetMoveComp::snapToNode(PathNode * node){
@@ -101,7 +111,7 @@ void PathNetMoveComp::snapToNode(PathNode * node){
 
 void PathNetMoveComp::arriveAtNode(PathNode *node){
     if(node){
-        currentNode = node;
+        setCurrentNode_Internal(node);
         isOnCurrentNode = true;
     }
 }
@@ -125,3 +135,27 @@ int PathNetMoveComp::calcRotation() {
 
 	return MathLib::radsToDegrees(std::atan2(opp,adj));	 
 }
+
+
+void PathNetMoveComp::setTargetNode_Internal(PathNode * node){
+    if(targetNode)
+        targetNode->notifyNotUsing(*this);
+    
+    if(node && node != currentNode)
+        node->notifyUsing(*this);
+    
+    targetNode = node;
+}
+
+
+void PathNetMoveComp::setCurrentNode_Internal(PathNode * node){
+    if(currentNode)
+        currentNode->notifyNotUsing(*this);
+    
+    if(node && node != targetNode)
+        node->notifyUsing(*this);
+    
+    currentNode = node;
+}
+
+
