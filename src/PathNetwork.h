@@ -28,13 +28,15 @@ public:
     //Will allocate the new node internally, indexOfNodeToConnectTo must be an index in the allNodes
     bool createNewNodeConnectedTo(sf::Vector2f newNodePos, unsigned int nodeIDToConnectTo, PathType newPathType);
 
-    bool createNewNodeConnectedTo(sf::Vector2f newNodePos, std::initializer_list<unsigned int> nodeIDsToConnectTo, PathType newPathType);
+    bool createNewNodeConnectedTo(sf::Vector2f newNodePos, std::initializer_list<unsigned int> nodeIDsToConnectTo, std::initializer_list<PathType> newPathType);
     
     //adds a string of connected nodes
-    bool createNewNodeString(std::initializer_list<sf::Vector2f> newNodes, PathType newPathType);
+    bool createNewNodeString(std::initializer_list<sf::Vector2f> newNodes, std::initializer_list<PathType>);
+
+    bool createNewNodeStringLoop(std::initializer_list<sf::Vector2f> newNodes, std::initializer_list<PathType>);
     
     //adds a string of connected nodes, the first of which will be connected to the specified node
-    bool createNewNodeStringConnectedTo(std::initializer_list<sf::Vector2f> newNodes, unsigned int nodeIDToConnectTo, PathType newPathType);
+    bool createNewNodeStringConnectedTo(std::initializer_list<sf::Vector2f> newNodes, unsigned int nodeIDToConnectTo, std::initializer_list<PathType>);
     
     //Moves every node by the specified offset, in world-space
     void moveNetwork(float x, float y);

@@ -44,7 +44,7 @@ namespace AssetLoader {
 			 {128,256,128,128}
 		};
 
-		return Animation(frames, 10);
+		return Animation(frames, 20);
 
 	}
 
@@ -55,6 +55,23 @@ namespace AssetLoader {
         antSprite.setOrigin(64,  106);
         
 		return antSprite;
+	}
+
+	sf::Sprite getSprite(sf::Texture textureSheet, sf::IntRect textureRect) {
+
+		sf::Sprite sprite;
+		sprite.setTexture(textureSheet);
+		sprite.setTextureRect(textureRect);
+		return sprite;
+		 
+	}
+
+	sf::Sprite getSprite(sf::Texture textureSheet) {
+
+		sf::Sprite sprite;
+		sprite.setTexture(textureSheet);
+		return sprite;
+		 
 	}
     
     std::vector<TileData> getTileDataArray(){
@@ -69,42 +86,40 @@ namespace AssetLoader {
     
     
     TileData getTileDataSolidEarth(){
-        sf::Sprite solidEarthSprite;
-        solidEarthSprite.setTexture(earthTextureSheet);
-        solidEarthSprite.setTextureRect( {768, 0, 128, 128} );
-        TileData solidEarth(solidEarthSprite);
-        return solidEarth;
+		sf::Sprite sprite = getSprite(earthTextureSheet, {768, 0, 128, 128});
+        return TileData(sprite);
     }
     
     
     TileData getTileDataHorizontalTunnel(){
-        sf::Sprite horiSprite;
-        horiSprite.setTexture(earthTextureSheet);
-        horiSprite.setTextureRect( {256, 0, 128, 128} );
-        TileData horiTunnel(horiSprite);
-        horiTunnel.localPathNetwork.createNewNode(leftPoint);
-        horiTunnel.localPathNetwork.createNewNodeConnectedTo(rightPoint, 0, PathType::FLOOR);
-        return horiTunnel;
+        sf::Sprite sprite = getSprite(earthTextureSheet, {256, 0, 128, 128});
+        TileData tile(sprite);
+        tile.localPathNetwork.createNewNode(bottomLeftPointLeftBorder);
+        tile.localPathNetwork.createNewNodeConnectedTo(bottomRightPointRightBorder, 0, PathType::FLOOR);
+        return tile;
     }
     
     TileData getTileDataVerticleTunnel(){
-        sf::Sprite vertSprite;
-        vertSprite.setTexture(earthTextureSheet);
-        vertSprite.setTextureRect({128, 0, 128, 128});
-        TileData vertTunnel(vertSprite);
-        vertTunnel.localPathNetwork.createNewNodeString( { topPoint, bottomPoint }, PathType::FLOOR);
+        sf::Sprite sprite = getSprite(earthTextureSheet, {128, 0, 128, 128});
+        TileData tile(sprite);
+        tile.localPathNetwork.createNewNode(bottomLeftPointBottomBorder);
+        tile.localPathNetwork.createNewNodeConnectedTo(topRightPointTopBorder, 0, PathType::FLOOR);
+        tile.localPathNetwork.createNewNodeConnectedTo(topMiddlePointBorder, 1, PathType::WALL);
+        tile.localPathNetwork.createNewNodeConnectedTo(topRightPointTopBorder, 2, PathType::WALL);
+        tile.localPathNetwork.createNewNodeConnectedTo(bottomRightPointBottomBorder, 3, PathType::FLOOR);
+        tile.localPathNetwork.createNewNodeConnectedTo(bottomMiddlePointBorder, 4, PathType::WALL);
+        tile.localPathNetwork.createNewNodeString( {topLeftPointTopBorder, bottomLeftPointBottomBorder}, PathType::FLOOR);
+        tile.localPathNetwork.createNewNodeString( {topRightPointTopBorder, bottomRightPointBottomBorder}, PathType::FLOOR);
         
-        return vertTunnel;
+        return tile;
     }
     
     TileData getTileDataBendRightBottom(){
-        sf::Sprite sprite;
-        sprite.setTexture(earthTextureSheet);
-        sprite.setTextureRect( {384, 0, 128, 128});
-        TileData bendBotRight(sprite);
-        bendBotRight.localPathNetwork.createNewNodeString({ rightPoint, bottomPoint }, PathType::FLOOR);
+        sf::Sprite sprite = getSprite(earthTextureSheet, {384, 0, 128, 128});
+        TileData tile(sprite);
+        tile.localPathNetwork.createNewNodeString({bottomMiddlePointBorder, bottomRightPointBorder}, PathType::WALL);
         
-        return bendBotRight;
+        return tile;
     }
 
     TileData getTileDataBranchLeftDownRight(){
@@ -113,7 +128,7 @@ namespace AssetLoader {
         sprite.setTextureRect({512, 0, 128, 128});
         TileData branchRLD(sprite);
         
-        branchRLD.localPathNetwork.createNewNodeString( { leftPoint, bottomPoint}, PathType::FLOOR );
+        branchRLD.localPathNetwork.createNewNodeString( {bottomLeftPointBorder, bottomMiddlePointBorder, bottomRightPointBorder}, PathType::WALL );
         branchRLD.localPathNetwork.createNewNodeConnectedTo( rightPoint, 0, PathType::FLOOR);
         return branchRLD;
     }

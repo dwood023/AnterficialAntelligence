@@ -18,6 +18,7 @@ Ant::Ant(sf::Vector2f newPosition)
 	,walkAnimation(AssetLoader::getAntWalkAnimation())
 {
     sprite = AssetLoader::getSpriteAnt();
+	sprite.setScale(0.5f,0.5f);
     setPosition(newPosition);
     pathNetMoveComp.setPosition(getPosition());
 }
@@ -31,7 +32,7 @@ void Ant::update(float deltaTime){
 		walkAnimation.update(sprite, deltaTime);
 
 		int angle = pathNetMoveComp.calcRotation();
-		int yScale = sprite.getScale().y;
+		float yScale = sprite.getScale().y;
 
 		// If the ant is upside down and isn't already flipped, flip it on Y
 		if ((abs(angle) > 90 && yScale > 0) || (abs(angle) < 90 && yScale < 0)) 

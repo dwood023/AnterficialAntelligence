@@ -120,6 +120,9 @@ void PathNetMoveComp::move(sf::Vector2f offset){
 
 int PathNetMoveComp::calcRotation() {
 
+	if (!currentNode || !targetNode) 
+		return 0;
+
 	float adj = targetNode->getPosition().x - currentNode->getPosition().x;
 	float opp = targetNode->getPosition().y - currentNode->getPosition().y;
 
