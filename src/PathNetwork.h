@@ -11,6 +11,7 @@
 
 #include <initializer_list>
 #include "PathNode.h"
+#include <SFML/Graphics/Rect.hpp>
 
 
 //Network ID method
@@ -51,7 +52,12 @@ public:
     //Will return nullptr if nodeNetID is invalid
     PathNode * getNode(unsigned int nodeNetID);
     
+    const std::vector<PathNode> & getAllNodes() const;
     
+    void getNodesInArea(sf::FloatRect area, std::vector<PathNode*> & nodesOut);
+    
+    //The distance within which nodes two nodes will be merged during network assimilation
+    static constexpr float nodeMergeDistance = 2.0f;
 private:
     std::vector<PathNode> allNodes;
     
@@ -64,9 +70,6 @@ private:
     
     //PERFORMANCE WARING: pretty hefty
     void mergeNodes(unsigned int node1ID, unsigned int node2ID);
-    
-    //The distance within which nodes two nodes will be merged during network assimilation
-    static constexpr float nodeMergeDistance = 2.0f;
 };
 
 

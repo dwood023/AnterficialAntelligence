@@ -137,6 +137,16 @@ int PathNetMoveComp::calcRotation() {
 }
 
 
+void PathNetMoveComp::notifyUtilisedNodePendingDeletion(PathNode const * const nodeToBeDeleted){
+    if(nodeToBeDeleted == currentNode)
+        currentNode = nullptr;
+    
+    if(nodeToBeDeleted == targetNode)
+        targetNode = nullptr;
+}
+
+
+
 void PathNetMoveComp::setTargetNode_Internal(PathNode * node){
     if(targetNode)
         targetNode->notifyNotUsing(*this);

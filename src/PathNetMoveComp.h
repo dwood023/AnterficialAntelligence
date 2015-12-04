@@ -45,6 +45,9 @@ public:
     sf::Vector2f getPosition() const;
 
 	int calcRotation();
+    
+    //A node that is about to be deleted calls this function, if it knows we are using it.
+    void notifyUtilisedNodePendingDeletion(PathNode const * const nodeToBeDeleted);
 private:
     //Teleport to and arrive at the specified node
     void snapToNode(PathNode * node);

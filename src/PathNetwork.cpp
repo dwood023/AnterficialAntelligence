@@ -111,6 +111,22 @@ PathNode * PathNetwork::getNode(unsigned int nodeNetID){
 }
 
 
+const std::vector<PathNode> & PathNetwork::getAllNodes() const{
+    return allNodes;
+}
+
+
+
+void PathNetwork::getNodesInArea(sf::FloatRect area, std::vector<PathNode*> & nodesOut){
+    for(int i = 0; i < allNodes.size(); ++i){
+        if(area.contains(allNodes[i].getPosition())){
+            nodesOut.push_back(&allNodes[i]);
+        }
+    }
+}
+
+
+
 unsigned long PathNetwork::numNodes() const{
     return allNodes.size();
 }

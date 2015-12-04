@@ -21,17 +21,19 @@ class PathNetMoveComp;
 class PathNode{
     friend class PathNetwork;
 public:
+    ~PathNode();
+    
     unsigned int getNetID();
     
     sf::Vector2f getPosition() const;
     
     //Tell the PathNode that the supplied PathNetMoveComp is refering to it.
     //Vital in case the PathNode is deleted
-    void notifyUsing(const PathNetMoveComp & user);
+    void notifyUsing(PathNetMoveComp & user);
     
     //Tell the PathNode that we are not using it anymore
     //Once nothing is using it, it can be deleted safely
-    void notifyNotUsing(const PathNetMoveComp & user);
+    void notifyNotUsing(PathNetMoveComp & user);
 private:
     PathNode(float posX, float posY);
     PathNode(sf::Vector2f pos);
@@ -49,7 +51,7 @@ private:
     std::vector<Path> adjacentPaths;
     
     //A list of pointers to anything that refers to this by reference or pointer, so that they can be alerted if this is destroyed
-    std::forward_list<const PathNetMoveComp *> thingsUsingThis;
+    std::forward_list<PathNetMoveComp *> thingsUsingThis;
 };
 
 enum class PathType{

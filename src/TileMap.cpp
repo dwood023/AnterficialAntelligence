@@ -159,6 +159,31 @@ void TileMap::transformTile(sf::Vector2u tile, const TileTransformation & transf
 
 
 void TileMap::setTileMidLoop(sf::Vector2u tileGridPosition, uint8_t newValue){
+    std::vector<PathNode*> nodesInTile;
+    const sf::Vector2f tilePos = getTilePosition(tileGridPosition);
+    worldPathNetwork.getNodesInArea({tilePos.x, tilePos.y, static_cast<float>(tileSize), static_cast<float>(tileSize)}, nodesInTile);
+    
+    PathNetwork newNetworkForTile = tileDataArray[newValue].localPathNetwork;
+    newNetworkForTile.moveNetwork(tilePos.x, tilePos.y);
+    
+    std::vector<PathNode*> worldNodesToDelete;
+    
+    for(int i = 0; i < nodesInTile.size(); ++i){
+        //If a node already in the tile to be changed does not match with any node in the nodes for the new tile, it needs to be deleted
+        //Otherwise, if the node is in the same place as one of the new nodes, it can stay and the new node will merge with it
+        bool canStay = false;
+        for(int z = 0; z < newNetworkForTile.getAllNodes().size()  &&  !canStay; ++z){
+            //If this already-present node is adjacent to one of the nodes in the replacement nodes, then it needn't be deleted, and can merge with the new node
+            if(MathLib::arePointsAdjacent(nodesInTile[i]->getPosition(), newNetworkForTile.getAllNodes()[z].getPosition(), PathNetwork::nodeMergeDistance)){
+                canStay = true;
+            }
+        }
+        
+        if(!canStay)
+            worldNodesToDelete.push_back(nodesInTile[i]);
+    }
+    
+    //delete the nodes?
     
 }
 

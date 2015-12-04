@@ -8,11 +8,17 @@
 
 #include "PathNode.h"
 #include <iostream>
+#include "PathNetMoveComp.h"
 
 
 //Network ID method
 
 
+PathNode::~PathNode(){
+    for(auto itr = thingsUsingThis.begin(); itr != thingsUsingThis.end(); ++itr){
+        (*itr)->notifyUtilisedNodePendingDeletion(this);
+    }
+}
 
 
 unsigned int PathNode::getNetID(){
@@ -24,22 +30,12 @@ sf::Vector2f PathNode::getPosition() const{
 }
 
 
-void PathNode::notifyUsing(const PathNetMoveComp & user){
+void PathNode::notifyUsing(PathNetMoveComp & user){
     thingsUsingThis.push_front(&user);
-    int counter = 0;
-    for(auto itr = thingsUsingThis.begin(); itr != thingsUsingThis.end(); ++itr){
-        ++counter;
-    }
-    std::cout<<netID<<" using. thingsUsing: "<<counter<<std::endl;
 }
 
-void PathNode::notifyNotUsing(const PathNetMoveComp & user){
+void PathNode::notifyNotUsing(PathNetMoveComp & user){
     thingsUsingThis.remove(&user);
-    int counter = 0;
-    for(auto itr = thingsUsingThis.begin(); itr != thingsUsingThis.end(); ++itr){
-        ++counter;
-    }
-    std::cout<<netID<<" not using. thingsUsing: "<<counter<<std::endl;
 }
 
 

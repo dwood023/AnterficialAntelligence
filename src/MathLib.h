@@ -45,6 +45,10 @@ namespace MathLib{
         
         return 1234;
     }
+    
+    template<typename T> bool arePointsAdjacent(const sf::Vector2<T> & point1, const sf::Vector2<T> & point2, double adjacencyDistance){
+        return (length(point1 - point2) <= adjacencyDistance);
+    }
 }
 
 #endif /* defined(__AntificialAntelligence__MathLib__) */
